@@ -4,6 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tree"
     tools:context=".MenuActivity">
 
+    <Button
+        android:id="@+id/movieButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="Movies"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.139"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/sportButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="Sports"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.139"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/musicButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="Music"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/tvButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="TV Shows"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/geographyButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="Geography"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.684"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/technologyButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="#7471C3"
+        android:text="Button"
+        android:textSize="12sp"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.684"
+        app:strokeColor="#F8F4F5"
+        app:strokeWidth="3dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
