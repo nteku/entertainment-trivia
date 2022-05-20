@@ -1,0 +1,23 @@
+[
+    {
+      "question": "Which movie was Denzel Washington not in?",
+      "option1" :  "Philadelphia",
+      "option2" :  "Malcolm X",
+      "option3" :  "Ali",
+      "answer"  :  "Ali"
+    },
+    {
+      "question" : "What is the highest grossed movie franchise of all time?",
+      "option1"  :  "Star Wars",
+      "option2"  :  "Marvel Cinematic Universe",
+      "option3"  :  "Harry Potter",
+      "answer"   :  "Marvel Cinematic Universe"
+    },
+    {
+      "question" : "Based on this image, what movie did this cast star in?",
+      "option1"  : "Scooby-Doo",
+      "option2"  : "Mamma Mia!",
+      "option3"  : "2 Hearts",
+      "answer"   : "Scooby-Doo"
+    }
+  ]
