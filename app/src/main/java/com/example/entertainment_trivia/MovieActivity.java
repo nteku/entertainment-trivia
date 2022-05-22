@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ public class MovieActivity extends AppCompatActivity {
     private  List <List<String>> log;
     private List <Integer> images;
     private ImageView currentImage;
-    private GifImageView gif ;
+    private WebView gif ;
 
     private final int TOTAL_QUESTIONS = 3;
 
@@ -54,12 +56,15 @@ public class MovieActivity extends AppCompatActivity {
         images = new ArrayList<>();
 
         initializeLists();
+        heading = findViewById(R.id.heading);
         question = findViewById(R.id.question);
         option1 = findViewById(R.id.option1);
         option2 = findViewById(R.id.option2);
         option3 = findViewById(R.id.option3);
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
+       // gif = findViewById(R.id.gif);
+      //  gif.setVisibility(View.GONE);
 
        //displayingInfo();
 
@@ -237,7 +242,17 @@ public class MovieActivity extends AppCompatActivity {
                  option3.setVisibility(View.GONE);
                  currentImage.setVisibility(View.GONE);
                  if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3){
-                     question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
+                     question.setVisibility(View.GONE);
+                     heading.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
+
+                     /*
+                     gif.setVisibility(View.VISIBLE);
+                     gif.getSettings().setJavaScriptEnabled(true);
+                     gif.setWebViewClient(new WebViewClient());
+                     gif.loadUrl("https://www.icegif.com/wp-content/uploads/good-job-icegif-20.gif");
+                     */
+
+
                   //   GifImageView gif = findViewById(R.id.gif);
                   //   gif.setImageResource(R.drawable.eddie);
                  }
