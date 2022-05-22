@@ -3,9 +3,11 @@ package com.example.entertainment_trivia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -35,7 +39,7 @@ public class MovieActivity extends AppCompatActivity {
     private  List <List<String>> log;
     private List <Integer> images;
     private ImageView currentImage;
-
+    private GifImageView gif ;
 
     private final int TOTAL_QUESTIONS = 3;
 
@@ -57,7 +61,7 @@ public class MovieActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-       displayingInfo();
+       //displayingInfo();
 
 
 
@@ -73,6 +77,7 @@ public class MovieActivity extends AppCompatActivity {
             if (option1.getText().equals(answer) ) {
                 option1.setBackgroundColor(Color.parseColor("#00FF00"));
                 option1.setText("Correct");
+                questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
@@ -91,6 +96,7 @@ public class MovieActivity extends AppCompatActivity {
             if (option2.getText().equals(answer) ) {
                 option2.setBackgroundColor(Color.parseColor("#00FF00"));
                 option2.setText("Correct");
+                questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
@@ -109,6 +115,7 @@ public class MovieActivity extends AppCompatActivity {
             if (option3.getText().equals(answer) ) {
                 option3.setBackgroundColor(Color.parseColor("#00FF00"));
                 option3.setText("Correct");
+                questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
@@ -124,8 +131,14 @@ public class MovieActivity extends AppCompatActivity {
 
 
         nextButton.setOnClickListener((v) ->{
-            setBackToDefault();
-           // displayingInfo();
+            if (questionsDone == TOTAL_QUESTIONS){
+                gameResult();
+            }
+            else{
+                setBackToDefault();
+            }
+
+
         });
 
 
@@ -214,16 +227,31 @@ public class MovieActivity extends AppCompatActivity {
        }
     }
     */
-    public void displayingInfo(){
+    public void gameResult(){
 
 
-             if (questionsDone == TOTAL_QUESTIONS){
-                 question = null;
-                 option1 = null;
-                 option2 = null;
-                 option3 = null;
-                 nextButton = null;
-             }
+
+                 nextButton.setText("Done");
+                 option1.setVisibility(View.GONE);
+                 option2.setVisibility(View.GONE);
+                 option3.setVisibility(View.GONE);
+                 currentImage.setVisibility(View.GONE);
+                 if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3){
+                     question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
+                  //   GifImageView gif = findViewById(R.id.gif);
+                  //   gif.setImageResource(R.drawable.eddie);
+                 }
+                 else{
+                     question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Better luck next time.");
+                 }
+
+
+                 nextButton.setOnClickListener((v)-> {
+                     Intent intent = new Intent(this,MenuActivity.class);
+                     startActivity(intent);
+                 });
+
+
 
 
     }

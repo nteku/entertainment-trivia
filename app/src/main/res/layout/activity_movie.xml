@@ -9,14 +9,13 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="360dp"
-        android:layout_height="402dp"
+        android:layout_width="275dp"
+        android:layout_height="224dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048"
+        app:layout_constraintVertical_bias="0.248"
         app:srcCompat="@drawable/denzelwashington" />
 
     <TextView
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
         android:fontFamily="cursive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="cursive"
+        android:gravity="center_horizontal"
         android:text=""
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -48,6 +47,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id = "@+id/gif"
+        android:layout_width="332dp"
+        android:layout_height="278dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.287" />
+
     <Button
         android:id="@+id/option1"
         android:layout_width="55mm"
@@ -57,10 +66,9 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531"
+        app:layout_constraintVertical_bias="0.568"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="3dp" />
 
@@ -76,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625"
+        app:layout_constraintVertical_bias="0.655"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="3dp" />
 
@@ -89,10 +97,9 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715"
+        app:layout_constraintVertical_bias="0.754"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="3dp" />
 
@@ -108,7 +115,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891"
+        app:layout_constraintVertical_bias="0.91"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="3dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
