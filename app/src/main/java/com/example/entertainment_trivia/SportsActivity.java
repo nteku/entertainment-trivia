@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -28,7 +30,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class SportsActivity extends AppCompatActivity {
 
-    private int bufferSize;
+
     private TextView heading;
     private TextView question;
     private Button option1;
@@ -41,7 +43,7 @@ public class SportsActivity extends AppCompatActivity {
     private  List <List<String>> log;
     private List <Integer> images;
     private ImageView currentImage;
-    private WebView gif ;
+
 
     private final int TOTAL_QUESTIONS = 3;
 
@@ -50,6 +52,9 @@ public class SportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_sports);
 
         log = new ArrayList<>();
@@ -63,10 +68,7 @@ public class SportsActivity extends AppCompatActivity {
         option3 = findViewById(R.id.option3);
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
-        // gif = findViewById(R.id.gif);
-        //  gif.setVisibility(View.GONE);
 
-        //displayingInfo();
 
 
 
@@ -75,7 +77,7 @@ public class SportsActivity extends AppCompatActivity {
         option2.setText(log.get(questionsDone).get(2));
         option3.setText(log.get(questionsDone).get(3));
         answer = log.get(questionsDone).get(4);
-        // answer = log.get(questionsDone).get(1);
+
 
 
         option1.setOnClickListener((v) -> {
@@ -181,16 +183,6 @@ public class SportsActivity extends AppCompatActivity {
         log.add(question2);
         log.add(question3);
 
-        /*
-        ImageView imageOne = new ImageView(this);
-        imageOne.setImageResource(R.drawable.denzelwashington);
-
-        ImageView imageTwo = new ImageView(this);
-        imageTwo.setImageResource(R.drawable.money);
-
-        ImageView imageThree = new ImageView(this);
-        imageThree.setImageResource(R.drawable.scoobydoo);
-    */
 
         images.add(R.drawable.rings);
         images.add( R.drawable.cries);
@@ -198,40 +190,7 @@ public class SportsActivity extends AppCompatActivity {
 
 
     }
-    /*
-    public void readingJson(){
-       String jsonString;
 
-       try{
-           InputStream input = getAssets().open("./json-files/movies.json");
-           bufferSize = input.available();
-           byte [] buf = new byte[bufferSize];
-           input.read(buf);
-           input.close();
-
-           jsonString = new String(buf,"UTF-8");
-           JSONArray objectArray = new JSONArray(jsonString);
-
-           for (int i = 0; i < objectArray.length(); i++){
-               heading = findViewById(R.id.heading);
-               heading.setText("Question " + (i+ 1));
-               JSONObject obj = objectArray.getJSONObject(i);
-               displayingInfo(obj);
-
-           }
-
-           //JSONObject obj = objectArray.getJSONObject(0);
-          //displayingInfo(obj);
-
-       }
-       catch(IOException e){
-
-       }
-       catch(JSONException e){
-
-       }
-    }
-    */
     public void gameResult(){
 
 
@@ -241,20 +200,9 @@ public class SportsActivity extends AppCompatActivity {
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
         currentImage.setVisibility(View.GONE);
-        if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3){
+        if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3) {
             question.setVisibility(View.GONE);
             heading.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
-
-                     /*
-                     gif.setVisibility(View.VISIBLE);
-                     gif.getSettings().setJavaScriptEnabled(true);
-                     gif.setWebViewClient(new WebViewClient());
-                     gif.loadUrl("https://www.icegif.com/wp-content/uploads/good-job-icegif-20.gif");
-                     */
-
-
-            //   GifImageView gif = findViewById(R.id.gif);
-            //   gif.setImageResource(R.drawable.eddie);
         }
         else{
             question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Better luck next time.");
