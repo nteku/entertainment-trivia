@@ -163,7 +163,7 @@ public class GeographyActivity extends AppCompatActivity {
         question1.add("Oman");
 
         List<String> question2 = new ArrayList<>();
-        question2.add("What continent is Algeria in");
+        question2.add("What continent is Algeria in?");
         question2.add("Asia");
         question2.add("Europe");
         question2.add("Africa");

@@ -20,10 +20,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Observer;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -43,9 +51,11 @@ public class MovieActivity extends AppCompatActivity {
     private  List <List<String>> log;
     private List <Integer> images;
     private ImageView currentImage;
+    private int totalQuestions;
+    private HashMap <Integer,List <String>> info;
+    private List <String> currentLog;
 
 
-    private final int TOTAL_QUESTIONS = 3;
 
 
     @Override
@@ -59,6 +69,7 @@ public class MovieActivity extends AppCompatActivity {
 
         log = new ArrayList<>();
         images = new ArrayList<>();
+        info = new HashMap<>();
 
         initializeLists();
         heading = findViewById(R.id.heading);
@@ -70,13 +81,21 @@ public class MovieActivity extends AppCompatActivity {
         currentImage = findViewById(R.id.image);
 
 
+        currentImage.setImageResource( images.get(questionsDone));
+        question.setText(info.get(images.get(questionsDone)).get(0));
+        option1.setText(info.get(images.get(questionsDone)).get(1));
+        option2.setText(info.get(images.get(questionsDone)).get(2));
+        option3.setText(info.get(images.get(questionsDone)).get(3));
+        answer = info.get(images.get(questionsDone)).get(4);
 
+
+        /*
         question.setText(log.get(questionsDone).get(0));
         option1.setText( log.get(questionsDone).get(1));
         option2.setText(log.get(questionsDone).get(2));
         option3.setText(log.get(questionsDone).get(3));
         answer = log.get(questionsDone).get(4);
-
+        */
 
 
         option1.setOnClickListener((v) -> {
@@ -137,7 +156,7 @@ public class MovieActivity extends AppCompatActivity {
 
 
         nextButton.setOnClickListener((v) ->{
-            if (questionsDone == TOTAL_QUESTIONS){
+            if (questionsDone == totalQuestions){
                 gameResult();
             }
             else{
@@ -156,21 +175,59 @@ public class MovieActivity extends AppCompatActivity {
         option3.setEnabled(false);
     }
     public void initializeLists(){
+
+
+
          List<String> question1 = new ArrayList<>();
+         List<String> question2 = new ArrayList<>();
+         List <String> question3 = new ArrayList<>();
+
+         currentLog = new ArrayList<>();
+
+
+
+
+
+
+        try {
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("movies.txt")));
+            Scanner input = new Scanner(textFileStream);
+            while (input.hasNextLine()) {
+
+                String line = input.nextLine();
+                if (line.equals("?")){
+
+                    log.add(currentLog);
+                    currentLog = new ArrayList<>();
+                    totalQuestions++;
+                }
+                else{
+                    currentLog.add(line);
+
+                }
+            }
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+         /*
          question1.add("Which movie was Denzel Washington not in?");
          question1.add("Philadelphia");
          question1.add("Malcolm X");
          question1.add("Ali");
          question1.add("Ali");
 
-        List<String> question2 = new ArrayList<>();
+
         question2.add("What is the highest grossed movie franchise of all time?");
         question2.add("Star Wars");
         question2.add("Marvel Cinematic Universe");
         question2.add("Harry Potter");
         question2.add( "Marvel Cinematic Universe");
 
-        List <String> question3 = new ArrayList<>();
+
         question3.add("Based on this image, what movie did this cast star in?");
         question3.add("Scooby-Doo");
         question3.add("Mamma Mia!");
@@ -182,12 +239,19 @@ public class MovieActivity extends AppCompatActivity {
         log.add(question2);
         log.add(question3);
 
-
+         */
         images.add(R.drawable.denzelwashington);
         images.add( R.drawable.money);
         images.add(R.drawable.scoobydoo);
 
 
+        for (int i = 0; i < log.size(); i++){
+            info.put(images.get(i),log.get(i));
+        }
+        Collections.shuffle(images);
+
+        // Create A HashMap that stores an integer and a list, which then have a list of integers which shuffles the order of it
+        // It crashed so now do a log.debug session to see what is the issue
     }
 
     public void gameResult(){
@@ -199,13 +263,13 @@ public class MovieActivity extends AppCompatActivity {
                  option2.setVisibility(View.GONE);
                  option3.setVisibility(View.GONE);
                  currentImage.setVisibility(View.GONE);
-                 if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3){
+                 if (  (double) (questionsCorrect/totalQuestions) > 0.5){
                      question.setVisibility(View.GONE);
-                     heading.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
+                     heading.setText("You got " + questionsCorrect + " out of " + totalQuestions + " correct. Good job!");
 
                  }
                  else{
-                     question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Better luck next time.");
+                     question.setText("You got " + questionsCorrect + " out of " + totalQuestions + " correct. Better luck next time.");
                  }
 
 
@@ -224,11 +288,17 @@ public class MovieActivity extends AppCompatActivity {
 
 
         currentImage.setImageResource(images.get(questionsDone));
-
+        question.setText(info.get(images.get(questionsDone)).get(0));
+        option1.setText( info.get(images.get(questionsDone)).get(1));
+        option2.setText(info.get(images.get(questionsDone)).get(2));
+        option3.setText(info.get(images.get(questionsDone)).get(3));
+        /*
         question.setText(log.get(questionsDone).get(0));
         option1.setText( log.get(questionsDone).get(1));
         option2.setText(log.get(questionsDone).get(2));
         option3.setText(log.get(questionsDone).get(3));
+
+         */
 
         option1.setBackgroundColor(Color.parseColor("#7471C3"));
         option2.setBackgroundColor(Color.parseColor("#7471C3"));
@@ -239,8 +309,8 @@ public class MovieActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
-        answer = log.get(questionsDone).get(4);
-
+        //answer = log.get(questionsDone).get(4);
+        answer = info.get(images.get(questionsDone)).get(4);
     }
 }
 
