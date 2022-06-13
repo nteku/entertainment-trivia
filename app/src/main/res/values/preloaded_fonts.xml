@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
+        <item>@font/aldrich</item>
+        <item>@font/alfa_slab_one</item>
+        <item>@font/anton</item>
+        <item>@font/audiowide</item>
+        <item>@font/bangers</item>
+        <item>@font/loved_by_the_king</item>
+        <item>@font/walter_turncoat</item>
+    </array>
+</resources>
