@@ -1,8 +1,10 @@
 package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +26,7 @@ public class MenuActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
+        animationBackground();
 
         movieButton = findViewById(R.id.movieButton);
         movieButton.setOnClickListener((v) ->{
@@ -57,7 +60,13 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-
+    public void animationBackground(){
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
+    }
 
     public void openActivity(Class activity){
         Intent intent = new Intent(this,activity);
