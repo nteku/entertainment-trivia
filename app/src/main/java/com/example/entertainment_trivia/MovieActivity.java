@@ -1,19 +1,24 @@
 package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -54,8 +59,9 @@ public class MovieActivity extends AppCompatActivity {
     private int totalQuestions;
     private HashMap <Integer,List <String>> info;
     private List <String> currentLog;
-
-
+    final private int height =  48;
+    final private int width = 422;
+    //private LinearLayout.LayoutParams params;
 
 
     @Override
@@ -67,6 +73,7 @@ public class MovieActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_movie);
 
+        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
@@ -80,6 +87,7 @@ public class MovieActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
+      //  LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)option1.getLayoutParams();
 
         currentImage.setImageResource( images.get(questionsDone));
         question.setText(info.get(images.get(questionsDone)).get(0));
@@ -135,18 +143,21 @@ public class MovieActivity extends AppCompatActivity {
 
             }
         });
-
+       // TODO : Implement the event handling correct and incorrect xml files for these buttons
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackgroundColor(Color.parseColor("#00FF00"));
                 option3.setText("Correct");
+                option3.setTextColor(Color.green(5));
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
             else{
-                option3.setBackgroundColor(Color.parseColor("#FF0000"));
+                //option3.setBackgroundColor(Color.parseColor("#FF0000"));
                 option3.setText("Incorrect");
+                option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
+               // option3.setTextColor(Color.parseColor("#FF0000"));
                 questionsDone++;
                 disableButtons();
 
@@ -160,7 +171,7 @@ public class MovieActivity extends AppCompatActivity {
                 gameResult();
             }
             else{
-                setBackToDefault();
+                setBackToDefault( );
             }
 
 
@@ -284,7 +295,7 @@ public class MovieActivity extends AppCompatActivity {
     }
 
 
-    public void setBackToDefault(){
+    public void setBackToDefault( ){
 
 
         currentImage.setImageResource(images.get(questionsDone));
@@ -299,11 +310,26 @@ public class MovieActivity extends AppCompatActivity {
         option3.setText(log.get(questionsDone).get(3));
 
          */
+        int dpHeight = (int) (height/ Resources.getSystem().getDisplayMetrics().density);
+        int dpWidth = (int) (width/ Resources.getSystem().getDisplayMetrics().density);
+       // LinearLayout.LayoutParams params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.dpWidth,dpHeight);
+        option1.setBackground(getResources().getDrawable(R.drawable.gradient));
+        /*
+        option1.setBackgroundColor(R.drawable.gradient);
+        /*
+        option1.setLayoutParams();
+        option1.setWidth(422);
+        option1.setHeight(48);
 
-        option1.setBackgroundColor(Color.parseColor("#7471C3"));
-        option2.setBackgroundColor(Color.parseColor("#7471C3"));
-        option3.setBackgroundColor(Color.parseColor("#7471C3"));
 
+
+        option2.setBackgroundColor(R.drawable.gradient);
+
+
+
+        option3.setBackgroundColor(R.drawable.gradient);
+
+   */
 
 
         option1.setEnabled(true);
@@ -311,6 +337,17 @@ public class MovieActivity extends AppCompatActivity {
         option3.setEnabled(true);
         //answer = log.get(questionsDone).get(4);
         answer = info.get(images.get(questionsDone)).get(4);
+
+    }
+
+
+
+    public void animationBackground(){
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
     }
 }
 
