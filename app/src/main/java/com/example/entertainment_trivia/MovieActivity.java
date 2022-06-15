@@ -2,45 +2,23 @@ package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observer;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
-import pl.droidsonroids.gif.GifImageView;
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -218,8 +196,6 @@ public class MovieActivity extends AppCompatActivity {
 
     public void gameResult(){
 
-
-
                  nextButton.setText("Done");
                  option1.setVisibility(View.GONE);
                  option2.setVisibility(View.GONE);
@@ -232,7 +208,7 @@ public class MovieActivity extends AppCompatActivity {
 
 
 
-                 if (   (correctPercentage  >= 0) && (correctPercentage <= 59)){
+                 if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
                      heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again.");
                  }
                  else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){

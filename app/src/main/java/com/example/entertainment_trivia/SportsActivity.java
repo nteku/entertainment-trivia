@@ -1,32 +1,24 @@
 package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
-import pl.droidsonroids.gif.GifImageView;
 
 public class SportsActivity extends AppCompatActivity {
 
@@ -38,14 +30,17 @@ public class SportsActivity extends AppCompatActivity {
     private Button option3;
     private Button nextButton;
     private String answer;
-    private int questionsCorrect;
-    private int questionsDone = 0;
+    private double questionsCorrect;
+    private double questionsDone = 0;
     private  List <List<String>> log;
     private List <Integer> images;
     private ImageView currentImage;
+    private double totalQuestions;
+    private HashMap <Integer,List <String>> info;
+    private List <String> currentLog;
+    private double correctPercentage;
 
 
-    private final int TOTAL_QUESTIONS = 3;
 
 
     @Override
@@ -57,8 +52,10 @@ public class SportsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sports);
 
+        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
+        info = new HashMap<>();
 
         initializeLists();
         heading = findViewById(R.id.heading);
@@ -71,29 +68,30 @@ public class SportsActivity extends AppCompatActivity {
 
 
 
+        currentImage.setImageResource( images.get((int) questionsDone));
+        question.setText(info.get(images.get((int) questionsDone)).get(0));
+        option1.setText(info.get(images.get((int) questionsDone)).get(1));
+        option2.setText(info.get(images.get((int) questionsDone)).get(2));
+        option3.setText(info.get(images.get((int) questionsDone)).get(3));
+        answer = info.get(images.get( (int) questionsDone)).get(4);
 
-        question.setText(log.get(questionsDone).get(0));
-        option1.setText( log.get(questionsDone).get(1));
-        option2.setText(log.get(questionsDone).get(2));
-        option3.setText(log.get(questionsDone).get(3));
-        answer = log.get(questionsDone).get(4);
 
 
 
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
-                option1.setBackgroundColor(Color.parseColor("#00FF00"));
+                option1.setBackground(getResources().getDrawable(R.drawable.correct));
                 option1.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
             else{
-                option1.setBackgroundColor(Color.parseColor("#FF0000"));
+                option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-                //  setBackToDefault();
+
 
 
             }
@@ -101,34 +99,34 @@ public class SportsActivity extends AppCompatActivity {
 
         option2.setOnClickListener((v) -> {
             if (option2.getText().equals(answer) ) {
-                option2.setBackgroundColor(Color.parseColor("#00FF00"));
+                option2.setBackground(getResources().getDrawable(R.drawable.correct));
                 option2.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
             else{
-                option2.setBackgroundColor(Color.parseColor("#FF0000"));
+                option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-                //setBackToDefault();
+
 
 
             }
         });
-
+        // TODO : Implement the event handling correct and incorrect xml files for these buttons
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
-                option3.setBackgroundColor(Color.parseColor("#00FF00"));
+                option3.setBackground(getResources().getDrawable(R.drawable.correct));
                 option3.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
             }
             else{
-                option3.setBackgroundColor(Color.parseColor("#FF0000"));
                 option3.setText("Incorrect");
+                option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
 
@@ -138,11 +136,11 @@ public class SportsActivity extends AppCompatActivity {
 
 
         nextButton.setOnClickListener((v) ->{
-            if (questionsDone == TOTAL_QUESTIONS){
+            if (questionsDone == totalQuestions){
                 gameResult();
             }
             else{
-                setBackToDefault();
+                setBackToDefault( );
             }
 
 
@@ -157,55 +155,73 @@ public class SportsActivity extends AppCompatActivity {
         option3.setEnabled(false);
     }
     public void initializeLists(){
-        List<String> question1 = new ArrayList<>();
-        question1.add("Which NBA player has the most championships?");
-        question1.add("Kobe Bryant");
-        question1.add("Bill Russell");
-        question1.add("Michael Jordan");
-        question1.add("Bill Russell");
 
-        List<String> question2 = new ArrayList<>();
-        question2.add("Which NFL Team is the only team to lose all games in a season?");
-        question2.add("Detroit Lions");
-        question2.add("Cleveland Browns");
-        question2.add("Houston Texans");
-        question2.add( "Detroit Lions");
-
-        List <String> question3 = new ArrayList<>();
-        question3.add("Which MLB Team is not based in New York?");
-        question3.add("Mets");
-        question3.add("Yankees");
-        question3.add("Marlins");
-        question3.add("Marlins");
+        currentLog = new ArrayList<>();
 
 
-        log.add(question1);
-        log.add(question2);
-        log.add(question3);
+        try {
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("sports.txt")));
+            Scanner input = new Scanner(textFileStream);
+            while (input.hasNextLine()) {
 
+                String line = input.nextLine();
+                if (line.equals("?")){
+
+                    log.add(currentLog);
+                    currentLog = new ArrayList<>();
+                    totalQuestions++;
+                }
+                else{
+                    currentLog.add(line);
+
+                }
+            }
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         images.add(R.drawable.rings);
         images.add( R.drawable.cries);
         images.add(R.drawable.nyc);
 
 
+        for (int i = 0; i < log.size(); i++){
+            info.put(images.get(i),log.get(i));
+        }
+        Collections.shuffle(images);
+
+
     }
 
     public void gameResult(){
-
-
 
         nextButton.setText("Done");
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
         currentImage.setVisibility(View.GONE);
-        if (  (double) (questionsCorrect/TOTAL_QUESTIONS) > 0.3) {
-            question.setVisibility(View.GONE);
-            heading.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Good job!");
+        question.setVisibility(View.GONE);
+
+
+        correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
+
+
+
+        if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again.");
+        }
+        else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good.");
+        }
+        else if ( (correctPercentage >= 70) && (correctPercentage <= 79)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better.");
+        }
+        else if ( (correctPercentage >= 80)  && (correctPercentage <= 89)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job!");
         }
         else{
-            question.setText("You got " + questionsCorrect + " out of " + TOTAL_QUESTIONS + " correct. Better luck next time.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work!");
         }
 
 
@@ -220,29 +236,34 @@ public class SportsActivity extends AppCompatActivity {
     }
 
 
-    public void setBackToDefault(){
+    public void setBackToDefault( ){
 
 
-        currentImage.setImageResource(images.get(questionsDone));
+        currentImage.setImageResource(images.get((int) questionsDone));
+        question.setText(info.get(images.get((int) questionsDone)).get(0));
+        option1.setText( info.get(images.get((int) questionsDone)).get(1));
+        option2.setText(info.get(images.get((int) questionsDone)).get(2));
+        option3.setText(info.get(images.get((int) questionsDone)).get(3));
 
-        question.setText(log.get(questionsDone).get(0));
-        option1.setText( log.get(questionsDone).get(1));
-        option2.setText(log.get(questionsDone).get(2));
-        option3.setText(log.get(questionsDone).get(3));
-
-        option1.setBackgroundColor(Color.parseColor("#7471C3"));
-        option2.setBackgroundColor(Color.parseColor("#7471C3"));
-        option3.setBackgroundColor(Color.parseColor("#7471C3"));
-
-
+        option1.setBackground(getResources().getDrawable(R.drawable.gradient));
+        option2.setBackground(getResources().getDrawable(R.drawable.gradient));
+        option3.setBackground(getResources().getDrawable(R.drawable.gradient));
 
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
-        answer = log.get(questionsDone).get(4);
+        answer = info.get(images.get((int) questionsDone)).get(4);
 
     }
+
+
+
+    public void animationBackground(){
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
+    }
 }
-
-
 
