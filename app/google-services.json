@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "816466406425",
+    "project_id": "entertainment-trivia-8e5e6",
+    "storage_bucket": "entertainment-trivia-8e5e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816466406425:android:23205d39799248e505ce88",
+        "android_client_info": {
+          "package_name": "com.example.entertainment_trivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816466406425-0i0e98kjo8nhsqud8rl647pvshinlpks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzt7woDEwcVvoXGjShBeUEX4aCmmKoh9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816466406425-0i0e98kjo8nhsqud8rl647pvshinlpks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

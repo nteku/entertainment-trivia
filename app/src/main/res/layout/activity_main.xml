@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ny"
+    android:background="@drawable/gradient_list"
+    android:id = "@+id/constraintLayout"
     tools:context=".MainActivity">
 
     <TextView
@@ -27,17 +28,22 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#7471C3"
-        android:text="Play"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:background="@drawable/gradient"
+        android:fontFamily="@font/loved_by_the_king"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631"
+        app:layout_constraintVertical_bias="0.584"
         app:strokeColor="#F8F4F5"
         app:strokeWidth="3dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
