@@ -28,7 +28,43 @@
             android:background="@drawable/register"
             android:orientation="vertical"
 
-            ></LinearLayout>
+            >
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="319dp"
+                android:layout_height="57dp"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Name"
+                android:textColorHint="@color/white"
+                android:fontFamily="@font/chewy"
+                 />
+
+            <EditText
+                android:id="@+id/editTextTextEmailAddress2"
+                android:layout_width="319dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint= "Email"
+                android:textColorHint="@color/white"
+                android:fontFamily="@font/chewy"/>
+
+            <EditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="319dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:textColorHint="@color/white"
+                app:endIconMode="password_toggle"
+                android:fontFamily="@font/chewy"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -44,4 +80,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.099" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@null"
+        android:text="Sign up"
+        android:fontFamily="@font/chewy"
+        android:background="@drawable/gradient"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.793" />
 </androidx.constraintlayout.widget.ConstraintLayout>

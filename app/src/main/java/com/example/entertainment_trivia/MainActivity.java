@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button startButton;
+    private TextView loggingIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         animateBackground();
 
         startButton = findViewById(R.id.startButton);
+        loggingIn = findViewById(R.id.logInLink);
+
+        loggingIn.setOnClickListener( (v) -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
         startButton.setOnClickListener((v) -> {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
