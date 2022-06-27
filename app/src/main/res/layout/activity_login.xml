@@ -43,7 +43,7 @@
                  />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress2"
+                android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="319dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
