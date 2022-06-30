@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button tvButton;
     private Button geographyButton;
     private Button techButton;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,12 @@ public class MenuActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
+        name = findViewById(R.id.name);
+        Intent intent = getIntent();
+
+        final String userName = intent.getStringExtra("name");
+
+        name.setText(" Hello " + userName + ",");
         animationBackground();
 
         movieButton = findViewById(R.id.movieButton);
