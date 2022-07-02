@@ -1,10 +1,13 @@
 package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button startButton;
     private TextView loggingIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +34,28 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         loggingIn = findViewById(R.id.logInLink);
 
+
+
         loggingIn.setOnClickListener( (v) -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        /*
         startButton.setOnClickListener((v) -> {
+
+
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
         });
+        */
+
 
     }
 
