@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // TODO Implement the event handling when signing up the user
+
     private Button signUpButton;
     private EditText name;
     private EditText email;
