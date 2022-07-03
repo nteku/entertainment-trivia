@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
 
+
+        /*
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +65,26 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
+        });
+
+
+         */
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference("account").push().setValue(new Account(name.getText().toString(),email.getText().toString(),password.getText().toString(),"0")).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Intent intent = new Intent(view.getContext(), MenuActivity.class);
+                            intent.putExtra("name",name.getText().toString());
+                            startActivity(intent);
+                            Toast.makeText(LoginActivity.this,"Successful",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         });
     }
 
