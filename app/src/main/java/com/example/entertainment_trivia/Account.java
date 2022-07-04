@@ -7,6 +7,9 @@ public class Account {
     private String password;
     private String score;
 
+    public Account (){
+
+    }
 
     public Account(String userName, String email, String password, String score){
         this.userName = userName;

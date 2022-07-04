@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
 
-
         });
 
 
@@ -81,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("name",name.getText().toString());
                             startActivity(intent);
                             Toast.makeText(LoginActivity.this,"Successful",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+
                         }
                     }
                 });

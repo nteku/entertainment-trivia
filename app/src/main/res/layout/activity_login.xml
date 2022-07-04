@@ -89,6 +89,8 @@
         android:background="@drawable/gradient"
         android:fontFamily="@font/chewy"
         android:text="Sign up"
+        android:stateListAnimator="@null"
+        android:elevation="20dp"
         android:textAllCaps="false"
         android:textSize="22sp"
         app:backgroundTint="@null"
@@ -97,5 +99,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.723" />
 </androidx.constraintlayout.widget.ConstraintLayout>
