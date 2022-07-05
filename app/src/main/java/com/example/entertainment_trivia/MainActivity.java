@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                               if (account.getEmail().equals(email.getText().toString())){
                                   if (account.getPassword().equals(password.getText().toString())){
                                       Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                                      intent.putExtra("name", account.getUserName());
+                                      intent.putExtra("account", account);
                                       startActivity(intent);
                                       Toast.makeText(MainActivity.this,"Login Successful!",Toast.LENGTH_SHORT).show();
                                   }

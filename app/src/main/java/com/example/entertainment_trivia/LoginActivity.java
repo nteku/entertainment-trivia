@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText name;
     private EditText email;
     private EditText password;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +73,13 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("account").push().setValue(new Account(name.getText().toString(),email.getText().toString(),password.getText().toString(),"0")).addOnCompleteListener(new OnCompleteListener<Void>() {
+                account = new Account(name.getText().toString(),email.getText().toString(),password.getText().toString(),"0");
+                FirebaseDatabase.getInstance().getReference("account").push().setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                            intent.putExtra("name",name.getText().toString());
+                            intent.putExtra("account",account);
                             startActivity(intent);
                             Toast.makeText(LoginActivity.this,"Successful",Toast.LENGTH_SHORT).show();
                         }

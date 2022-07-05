@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button geographyButton;
     private Button techButton;
     private TextView name;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,38 +33,65 @@ public class MenuActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         Intent intent = getIntent();
 
-        final String userName = intent.getStringExtra("name");
+        if (intent != null) {
+            account = (Account) intent.getSerializableExtra("account");
+            name.setText(" Hello " + account.getUserName() + ",");
+        }
 
-        name.setText(" Hello " + userName + ",");
+
         animationBackground();
 
         movieButton = findViewById(R.id.movieButton);
-        movieButton.setOnClickListener((v) ->{
-           openActivity(MovieActivity.class);
+        movieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(MovieActivity.class,view);
+            }
         });
 
         sportButton = findViewById(R.id.sportButton);
-        sportButton.setOnClickListener((v) ->{
-            openActivity(SportsActivity.class);
+        sportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(SportsActivity.class,view);
+            }
         });
 
         musicButton = findViewById(R.id.musicButton);
-        musicButton.setOnClickListener((v) ->{
-            openActivity(MusicActivity.class);
+        musicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(MusicActivity.class,view);
+            }
         });
 
         tvButton = findViewById(R.id.tvButton);
-        tvButton.setOnClickListener((v) ->{
-            openActivity(TVActivity.class);
+        tvButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(TVActivity.class,view);
+            }
         });
 
         geographyButton = findViewById(R.id.geographyButton);
-        geographyButton.setOnClickListener((v) ->{
-            openActivity(GeographyActivity.class);
+        geographyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(GeographyActivity.class,view);
+            }
         });
         techButton = findViewById(R.id.technologyButton);
-        techButton.setOnClickListener((v) ->{
-            openActivity(TechnologyActivity.class);
+        techButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openActivity(TechnologyActivity.class,view);
+            }
         });
 
 
@@ -76,8 +105,9 @@ public class MenuActivity extends AppCompatActivity {
         animationDrawable.start();
     }
 
-    public void openActivity(Class activity){
-        Intent intent = new Intent(this,activity);
+    public void openActivity(Class activity, View view){
+        Intent intent = new Intent(view.getContext(), activity);
+        intent.putExtra("account", account);
         startActivity(intent);
     }
 }

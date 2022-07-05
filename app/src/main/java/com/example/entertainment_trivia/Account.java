@@ -1,6 +1,8 @@
 package com.example.entertainment_trivia;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 
     private String userName;
     private String email;
