@@ -1,5 +1,6 @@
 package com.example.entertainment_trivia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -11,6 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -21,6 +27,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button geographyButton;
     private Button techButton;
     private TextView name;
+    private TextView score;
     private Account account;
 
     @Override
@@ -31,11 +38,15 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_menu);
         name = findViewById(R.id.name);
+        score = findViewById(R.id.score);
+
+
         Intent intent = getIntent();
 
         if (intent != null) {
             account = (Account) intent.getSerializableExtra("account");
             name.setText(" Hello " + account.getUserName() + ",");
+            score.setText("Score " + account.getScore());
         }
 
 
@@ -97,6 +108,17 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    public void updateAccount(){
+
+        FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(MenuActivity.this, "Success",Toast.LENGTH_SHORT);
+                }
+            }
+        });
+    }
     public void animationBackground(){
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
