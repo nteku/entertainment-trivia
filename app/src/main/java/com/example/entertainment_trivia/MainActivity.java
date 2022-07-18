@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("account").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot  dataSnapshot: snapshot.getChildren()){

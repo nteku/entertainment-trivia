@@ -304,19 +304,6 @@ public class MovieActivity extends AppCompatActivity {
                      }
                  });
 
-                 /*
-                 nextButton.setOnClickListener((v)-> {
-                     Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                     intent.putExtra("account", account);
-                     startActivity(intent);
-
-                     Intent intent = new Intent(this,MenuActivity.class);
-                     startActivity(intent);
-                 });
-
-                */
-
-
     }
 
 

@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText name;
     private EditText email;
     private EditText password;
-    private FirebaseAuth userID;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private Account account;
@@ -135,28 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                                         });
 
 
-        /*
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                account = new Account(name.getText().toString(),email.getText().toString(),password.getText().toString(),"0");
-                FirebaseDatabase.getInstance().getReference("account").push().setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                            intent.putExtra("account",account);
-                            startActivity(intent);
-                            Toast.makeText(LoginActivity.this,"Successful",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-
-                        }
-                    }
-                });
-            }
-        });
-       */
 
     }
 
