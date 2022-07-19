@@ -1,5 +1,6 @@
 package com.example.entertainment_trivia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
@@ -11,6 +12,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +46,8 @@ public class TVActivity extends AppCompatActivity {
     private HashMap <Integer,List <String>> info;
     private List <String> currentLog;
     private double correctPercentage;
-
+    private Account account;
+    private int score;
 
 
 
@@ -56,6 +64,14 @@ public class TVActivity extends AppCompatActivity {
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
+
+
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            account = (Account) intent.getSerializableExtra("account");
+            score = Integer.parseInt(account.getScore());
+        }
 
         initializeLists();
         heading = findViewById(R.id.heading);
@@ -208,26 +224,44 @@ public class TVActivity extends AppCompatActivity {
 
 
 
+
         if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 70) && (correctPercentage <= 79)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 80)  && (correctPercentage <= 89)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job!");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
         }
         else{
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work!");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
 
-        nextButton.setOnClickListener((v)-> {
-            Intent intent = new Intent(this,MenuActivity.class);
-            startActivity(intent);
+
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(TVActivity.this, "Success",Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+
+                Intent intent = new Intent(view.getContext(), MenuActivity.class);
+                account.setScore(String.valueOf(score));
+                intent.putExtra("account", account);
+                startActivity(intent);
+            }
         });
 
 

@@ -16,7 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -283,26 +287,70 @@ public class MovieActivity extends AppCompatActivity {
                      heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
                  }
 
+                 account.setScore(String.valueOf(score));
 
+                 /*
                  nextButton.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View view) {
 
-                         FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                         FirebaseDatabase.getInstance().getReference("users").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
                              @Override
                              public void onComplete(@NonNull Task<Void> task) {
                                  if (task.isSuccessful()) {
-                                     Toast.makeText(MovieActivity.this, "Success",Toast.LENGTH_SHORT);
+                                     Toast.makeText(MovieActivity.this, "Success",Toast.LENGTH_SHORT).show();
+                                 }
+                                 else{
+                                     Toast.makeText(MovieActivity.this, "Fail",Toast.LENGTH_SHORT).show();
                                  }
                              }
                          });
 
                          Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                         account.setScore(String.valueOf(score));
                          intent.putExtra("account", account);
                          startActivity(intent);
                      }
                  });
+                 */
+
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot  dataSnapshot: snapshot.getChildren()){
+                                    Account traversingAccount = dataSnapshot.getValue(Account.class);
+                                    if (traversingAccount.getUserName().equals(account.getUserName()) ){
+                                            account.setScore(String.valueOf(score));
+
+                                        FirebaseDatabase.getInstance().getReference("users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(MovieActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                                                            intent.putExtra("account", account);
+                                                            startActivity(intent);
+                                                        }else{
+                                                            Toast.makeText(MovieActivity.this,"Task failed",Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
 
     }
 

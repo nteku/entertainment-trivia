@@ -77,14 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-        /*
-        startButton.setOnClickListener((v) -> {
 
-
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-        });
-        */
 
 
     }

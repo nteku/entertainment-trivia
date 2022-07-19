@@ -92,11 +92,25 @@ public class MusicActivity extends AppCompatActivity {
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
 
-
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
-                option1.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option1.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option1.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option1.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
+                // option1.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -115,7 +129,22 @@ public class MusicActivity extends AppCompatActivity {
         option2.setOnClickListener((v) -> {
             if (option2.getText().equals(answer) ) {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
-                option2.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option2.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option2.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option2.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
+                //   option2.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -134,7 +163,22 @@ public class MusicActivity extends AppCompatActivity {
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
-                option3.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option3.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option3.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option3.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
+                //  option3.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -163,6 +207,8 @@ public class MusicActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void disableButtons(){
         option1.setEnabled(false);
@@ -239,7 +285,7 @@ public class MusicActivity extends AppCompatActivity {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
-
+        account.setScore(String.valueOf(score));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -254,7 +300,6 @@ public class MusicActivity extends AppCompatActivity {
                 });
 
                 Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                account.setScore(String.valueOf(score));
                 intent.putExtra("account", account);
                 startActivity(intent);
             }
