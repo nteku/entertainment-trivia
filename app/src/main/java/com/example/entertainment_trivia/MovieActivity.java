@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -287,7 +288,7 @@ public class MovieActivity extends AppCompatActivity {
                      heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
                  }
 
-                 account.setScore(String.valueOf(score));
+                // account.setScore(String.valueOf(score));
 
                  /*
                  nextButton.setOnClickListener(new View.OnClickListener() {
@@ -316,39 +317,13 @@ public class MovieActivity extends AppCompatActivity {
                 nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (DataSnapshot  dataSnapshot: snapshot.getChildren()){
-                                    Account traversingAccount = dataSnapshot.getValue(Account.class);
-                                    if (traversingAccount.getUserName().equals(account.getUserName()) ){
-                                            account.setScore(String.valueOf(score));
 
-                                        FirebaseDatabase.getInstance().getReference("users")
-                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Toast.makeText(MovieActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                                                            intent.putExtra("account", account);
-                                                            startActivity(intent);
-                                                        }else{
-                                                            Toast.makeText(MovieActivity.this,"Task failed",Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                        account.setScore(String.valueOf(score));
+                        Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                        intent.putExtra("account", account);
+                        startActivity(intent);
 
-
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
                     }
                 });
 

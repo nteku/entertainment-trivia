@@ -19,8 +19,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView loggingIn;
     private EditText email;
     private EditText password;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+
+
+
+        /*
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,9 +89,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+*/
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    account = snapshot.getValue(Account.class);
+                                    Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                                    intent.putExtra("account", account);
+                                    startActivity(intent);
+                                  //  Toast.makeText(MainActivity.this,"Login Successful!",Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
 
 
-    }
+                        }
+                    });
+                }
+            });
+        }
+
+
 
 
   public void animateBackground(){
