@@ -108,17 +108,6 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    public void updateAccount(){
-
-        FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(MenuActivity.this, "Success",Toast.LENGTH_SHORT);
-                }
-            }
-        });
-    }
     public void animationBackground(){
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();

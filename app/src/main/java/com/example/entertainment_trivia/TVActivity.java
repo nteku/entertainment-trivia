@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.DataInputStream;
@@ -93,11 +94,25 @@ public class TVActivity extends AppCompatActivity {
 
 
 
-
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
-                option1.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option1.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option1.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option1.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
+
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -107,16 +122,27 @@ public class TVActivity extends AppCompatActivity {
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
         option2.setOnClickListener((v) -> {
             if (option2.getText().equals(answer) ) {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
-                option2.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option2.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option2.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option2.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -126,16 +152,27 @@ public class TVActivity extends AppCompatActivity {
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
-        // TODO : Implement the event handling correct and incorrect xml files for these buttons
+
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
-                option3.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option3.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option3.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option3.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -145,8 +182,6 @@ public class TVActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
-
-
             }
         });
 
@@ -158,10 +193,7 @@ public class TVActivity extends AppCompatActivity {
             else{
                 setBackToDefault( );
             }
-
-
         });
-
 
     }
 
@@ -219,11 +251,7 @@ public class TVActivity extends AppCompatActivity {
         currentImage.setVisibility(View.GONE);
         question.setVisibility(View.GONE);
 
-
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
-
-
-
 
         if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
@@ -241,26 +269,16 @@ public class TVActivity extends AppCompatActivity {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
-
-
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(TVActivity.this, "Success",Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
-
-                Intent intent = new Intent(view.getContext(), MenuActivity.class);
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
+
             }
         });
 

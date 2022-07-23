@@ -11,6 +11,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +43,8 @@ public class TechnologyActivity extends AppCompatActivity {
     private HashMap <Integer,List <String>> info;
     private List <String> currentLog;
     private double correctPercentage;
-
+    private Account account;
+    private int score;
 
 
 
@@ -57,7 +62,16 @@ public class TechnologyActivity extends AppCompatActivity {
         images = new ArrayList<>();
         info = new HashMap<>();
 
+
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            account = (Account) intent.getSerializableExtra("account");
+            score = Integer.parseInt(account.getScore());
+        }
+
         initializeLists();
+
         heading = findViewById(R.id.heading);
         question = findViewById(R.id.question);
         option1 = findViewById(R.id.option1);
@@ -66,8 +80,6 @@ public class TechnologyActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-
-
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText(info.get(images.get((int) questionsDone)).get(1));
@@ -75,13 +87,25 @@ public class TechnologyActivity extends AppCompatActivity {
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
 
-
-
-
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
-                option1.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option1.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option1.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option1.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
+
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -91,16 +115,27 @@ public class TechnologyActivity extends AppCompatActivity {
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
         option2.setOnClickListener((v) -> {
             if (option2.getText().equals(answer) ) {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
-                option2.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option2.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option2.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option2.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -110,16 +145,27 @@ public class TechnologyActivity extends AppCompatActivity {
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
-        // TODO : Implement the event handling correct and incorrect xml files for these buttons
+
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
-                option3.setText("Correct");
+                switch ((int) questionsDone){
+                    case 0:
+                        option3.setText("Correct + 2");
+                        score += 2;
+                        break;
+                    case 1:
+                        option3.setText("Correct + 4");
+                        score += 4;
+                        break;
+                    case 2:
+                        option3.setText("Correct + 6");
+                        score += 6;
+                        break;
+
+                }
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -129,8 +175,6 @@ public class TechnologyActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
-
-
             }
         });
 
@@ -142,10 +186,7 @@ public class TechnologyActivity extends AppCompatActivity {
             else{
                 setBackToDefault( );
             }
-
-
         });
-
 
     }
 
@@ -203,32 +244,38 @@ public class TechnologyActivity extends AppCompatActivity {
         currentImage.setVisibility(View.GONE);
         question.setVisibility(View.GONE);
 
-
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
 
-
-
         if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 70) && (correctPercentage <= 79)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better.");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
         }
         else if ( (correctPercentage >= 80)  && (correctPercentage <= 89)){
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job!");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
         }
         else{
-            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work!");
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
 
-        nextButton.setOnClickListener((v)-> {
-            Intent intent = new Intent(this,MenuActivity.class);
-            startActivity(intent);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                account.setScore(String.valueOf(score));
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                intent.putExtra("account", account);
+                startActivity(intent);
+
+            }
         });
+
 
 
 

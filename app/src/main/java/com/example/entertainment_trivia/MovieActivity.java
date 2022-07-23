@@ -1,6 +1,6 @@
 package com.example.entertainment_trivia;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
@@ -12,28 +12,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 
 public class MovieActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -115,7 +105,7 @@ public class MovieActivity extends AppCompatActivity {
                         break;
 
                 }
-               // option1.setText("Correct");
+
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -125,9 +115,6 @@ public class MovieActivity extends AppCompatActivity {
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
@@ -149,7 +136,6 @@ public class MovieActivity extends AppCompatActivity {
                         break;
 
                 }
-             //   option2.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -159,12 +145,9 @@ public class MovieActivity extends AppCompatActivity {
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
-       // TODO : Implement the event handling correct and incorrect xml files for these buttons
+
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
@@ -183,7 +166,6 @@ public class MovieActivity extends AppCompatActivity {
                         break;
 
                 }
-              //  option3.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -193,8 +175,6 @@ public class MovieActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
-
-
             }
         });
 
@@ -206,11 +186,7 @@ public class MovieActivity extends AppCompatActivity {
             else{
                 setBackToDefault( );
             }
-
-
         });
-
-
     }
 
     public void disableButtons(){
@@ -218,10 +194,10 @@ public class MovieActivity extends AppCompatActivity {
         option2.setEnabled(false);
         option3.setEnabled(false);
     }
+
     public void initializeLists(){
 
         currentLog = new ArrayList<>();
-
 
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("movies.txt")));
@@ -230,14 +206,12 @@ public class MovieActivity extends AppCompatActivity {
 
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -249,13 +223,10 @@ public class MovieActivity extends AppCompatActivity {
         images.add( R.drawable.money);
         images.add(R.drawable.scoobydoo);
 
-
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
         Collections.shuffle(images);
-
-
     }
 
     public void gameResult(){
@@ -267,10 +238,7 @@ public class MovieActivity extends AppCompatActivity {
                  currentImage.setVisibility(View.GONE);
                  question.setVisibility(View.GONE);
 
-
                  correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
-
-
 
                  if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
                      heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
@@ -287,32 +255,6 @@ public class MovieActivity extends AppCompatActivity {
                  else{
                      heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
                  }
-
-                // account.setScore(String.valueOf(score));
-
-                 /*
-                 nextButton.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View view) {
-
-                         FirebaseDatabase.getInstance().getReference("users").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                             @Override
-                             public void onComplete(@NonNull Task<Void> task) {
-                                 if (task.isSuccessful()) {
-                                     Toast.makeText(MovieActivity.this, "Success",Toast.LENGTH_SHORT).show();
-                                 }
-                                 else{
-                                     Toast.makeText(MovieActivity.this, "Fail",Toast.LENGTH_SHORT).show();
-                                 }
-                             }
-                         });
-
-                         Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                         intent.putExtra("account", account);
-                         startActivity(intent);
-                     }
-                 });
-                 */
 
                 nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -331,8 +273,6 @@ public class MovieActivity extends AppCompatActivity {
 
 
     public void setBackToDefault( ){
-
-
         currentImage.setImageResource(images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
@@ -349,8 +289,6 @@ public class MovieActivity extends AppCompatActivity {
         answer = info.get(images.get((int) questionsDone)).get(4);
 
     }
-
-
 
     public void animationBackground(){
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);

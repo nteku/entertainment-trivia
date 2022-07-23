@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.DataInputStream;
@@ -288,22 +289,17 @@ public class MusicActivity extends AppCompatActivity {
         account.setScore(String.valueOf(score));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                FirebaseDatabase.getInstance().getReference("account").setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MusicActivity.this, "Success",Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
-
-                Intent intent = new Intent(view.getContext(), MenuActivity.class);
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                account.setScore(String.valueOf(score));
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
+
             }
         });
+
 
     }
 

@@ -27,7 +27,7 @@
         android:text=""
         android:fontFamily="@font/loved_by_the_king"
         android:textColor="@color/white"
-        android:textSize="65sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
