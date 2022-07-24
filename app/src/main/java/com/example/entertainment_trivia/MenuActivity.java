@@ -50,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
         }
 
 
-        animationBackground();
+
 
         movieButton = findViewById(R.id.movieButton);
         movieButton.setOnClickListener(new View.OnClickListener() {
@@ -106,14 +106,6 @@ public class MenuActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
     }
 
     public void openActivity(Class activity, View view){

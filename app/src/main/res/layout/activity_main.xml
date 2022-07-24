@@ -31,7 +31,7 @@
         android:id="@+id/startButton"
         android:layout_width="122dp"
         android:layout_height="48dp"
-        android:background="@drawable/button"
+        android:background="@drawable/openingbutton"
         android:elevation="20dp"
         android:fontFamily="@font/chewy"
         android:stateListAnimator="@null"
@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748"
+        app:layout_constraintVertical_bias="0.821"
         app:strokeColor="#F8F4F5"
         app:strokeWidth="3dp" />
 
@@ -54,7 +54,7 @@
         android:id="@+id/logInLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't have an account? Create one"
+        android:text="Don't have an account? Create one here"
         android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,6 +92,7 @@
                 android:layout_gravity="center_horizontal"
                 android:ems="10"
                 android:fontFamily="@font/chewy"
+                android:textColor="@color/white"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/white" />
@@ -101,6 +102,7 @@
                 android:layout_width="319dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
                 android:ems="10"
                 android:fontFamily="@font/chewy"
                 android:hint="Password"
@@ -109,5 +111,17 @@
                 app:endIconMode="password_toggle" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.708" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

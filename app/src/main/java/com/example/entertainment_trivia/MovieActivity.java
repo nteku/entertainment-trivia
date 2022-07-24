@@ -2,9 +2,7 @@ package com.example.entertainment_trivia;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,7 +19,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -44,7 +41,6 @@ public class MovieActivity extends AppCompatActivity {
     private Account account;
     private int score;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,11 +50,9 @@ public class MovieActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_movie);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
 
         Intent intent = getIntent();
 
@@ -84,9 +78,6 @@ public class MovieActivity extends AppCompatActivity {
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
 
-
-
-
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
@@ -94,21 +85,25 @@ public class MovieActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -125,20 +120,25 @@ public class MovieActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -155,20 +155,25 @@ public class MovieActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
@@ -177,7 +182,6 @@ public class MovieActivity extends AppCompatActivity {
                 disableButtons();
             }
         });
-
 
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
@@ -196,7 +200,6 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     public void initializeLists(){
-
         currentLog = new ArrayList<>();
 
         try {
@@ -230,45 +233,41 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     public void gameResult(){
+        nextButton.setText("Done");
+        option1.setVisibility(View.GONE);
+        option2.setVisibility(View.GONE);
+        option3.setVisibility(View.GONE);
+        currentImage.setVisibility(View.GONE);
+        question.setVisibility(View.GONE);
 
-                 nextButton.setText("Done");
-                 option1.setVisibility(View.GONE);
-                 option2.setVisibility(View.GONE);
-                 option3.setVisibility(View.GONE);
-                 currentImage.setVisibility(View.GONE);
-                 question.setVisibility(View.GONE);
+        correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
 
-                 correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
+        if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
+        }
+        else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
+        }
+        else if ( (correctPercentage >= 70) && (correctPercentage <= 79)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
+        }
+        else if ( (correctPercentage >= 80)  && (correctPercentage <= 89)){
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
+        }
+        else{
+            heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
+        }
 
-                 if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
-                     heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
-                 }
-                 else if ( (correctPercentage >= 60) && (correctPercentage <= 69)){
-                     heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
-                 }
-                 else if ( (correctPercentage >= 70) && (correctPercentage <= 79)){
-                     heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
-                 }
-                 else if ( (correctPercentage >= 80)  && (correctPercentage <= 89)){
-                     heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
-                 }
-                 else{
-                     heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
-                 }
-
-                nextButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
-                        account.setScore(String.valueOf(score));
-                        Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                        intent.putExtra("account", account);
-                        startActivity(intent);
-
-                    }
-                });
-
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                account.setScore(String.valueOf(score));
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -287,16 +286,8 @@ public class MovieActivity extends AppCompatActivity {
         option2.setEnabled(true);
         option3.setEnabled(true);
         answer = info.get(images.get((int) questionsDone)).get(4);
-
     }
 
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
-    }
 }
 
 

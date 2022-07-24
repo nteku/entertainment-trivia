@@ -50,9 +50,6 @@ public class MusicActivity extends AppCompatActivity {
     private Account account;
     private int score;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,12 +59,9 @@ public class MusicActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_music);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
-
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -83,8 +77,6 @@ public class MusicActivity extends AppCompatActivity {
         option3 = findViewById(R.id.option3);
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
-
-
 
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
@@ -121,9 +113,6 @@ public class MusicActivity extends AppCompatActivity {
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
@@ -143,9 +132,7 @@ public class MusicActivity extends AppCompatActivity {
                         option2.setText("Correct + 6");
                         score += 6;
                         break;
-
                 }
-                //   option2.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -155,12 +142,9 @@ public class MusicActivity extends AppCompatActivity {
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
-        // TODO : Implement the event handling correct and incorrect xml files for these buttons
+
         option3.setOnClickListener((v) -> {
             if (option3.getText().equals(answer) ) {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
@@ -179,7 +163,6 @@ public class MusicActivity extends AppCompatActivity {
                         break;
 
                 }
-                //  option3.setText("Correct");
                 questionsCorrect++;
                 questionsDone++;
                 disableButtons();
@@ -189,11 +172,8 @@ public class MusicActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
-
-
             }
         });
-
 
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
@@ -202,14 +182,8 @@ public class MusicActivity extends AppCompatActivity {
             else{
                 setBackToDefault( );
             }
-
-
         });
-
-
     }
-
-
 
     public void disableButtons(){
         option1.setEnabled(false);
@@ -219,7 +193,6 @@ public class MusicActivity extends AppCompatActivity {
     public void initializeLists(){
 
         currentLog = new ArrayList<>();
-
 
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("music.txt")));
@@ -247,13 +220,11 @@ public class MusicActivity extends AppCompatActivity {
         images.add( R.drawable.grammy);
         images.add(R.drawable.mj);
 
-
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
+
         Collections.shuffle(images);
-
-
     }
 
     public void gameResult(){
@@ -265,10 +236,7 @@ public class MusicActivity extends AppCompatActivity {
         currentImage.setVisibility(View.GONE);
         question.setVisibility(View.GONE);
 
-
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
-
-
 
         if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
@@ -300,12 +268,9 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
-
     public void setBackToDefault( ){
-
 
         currentImage.setImageResource(images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
@@ -324,15 +289,6 @@ public class MusicActivity extends AppCompatActivity {
 
     }
 
-
-
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
-    }
 }
 
 
