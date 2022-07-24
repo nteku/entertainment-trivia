@@ -44,94 +44,73 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
-       // animateBackground();
 
         startButton = findViewById(R.id.startButton);
         loggingIn = findViewById(R.id.logInLink);
         email = findViewById(R.id.editTextTextEmailAddress2);
         password = findViewById(R.id.editTextTextPassword);
 
-
         loggingIn.setOnClickListener( (v) -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
-
-
-
-
-
-        /*
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot  dataSnapshot: snapshot.getChildren()){
-                            Account account = dataSnapshot.getValue(Account.class);
-                              if (account.getEmail().equals(email.getText().toString())){
-                                  if (account.getPassword().equals(password.getText().toString())){
-                                      Intent intent = new Intent(view.getContext(), MenuActivity.class);
-                                      intent.putExtra("account", account);
-                                      startActivity(intent);
-                                      Toast.makeText(MainActivity.this,"Login Successful!",Toast.LENGTH_SHORT).show();
-                                  }
-                              }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-*/
 
         startButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    account = snapshot.getValue(Account.class);
-                                    Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                                    intent.putExtra("account", account);
-                                    startActivity(intent);
-                                  //  Toast.makeText(MainActivity.this,"Login Successful!",Toast.LENGTH_SHORT).show();
-                                }
+                if (!emptyCredential()) {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        account = snapshot.getValue(Account.class);
+                                        Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                                        intent.putExtra("account", account);
+                                        startActivity(intent);
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    }
 
-                                }
-                            });
-                        }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
+                                    }
+                                });
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this,"Email or Password is incorrect",Toast.LENGTH_SHORT).show();
+                            }
 
                         }
                     });
                 }
-            });
+            }
+        });
+    }
+
+        public boolean emptyCredential(){
+
+            if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+                email.setError("Email is empty.");
+                password.setError("Password is empty.");
+                return true;
+            }
+            else{
+                if (email.getText().toString().isEmpty()){
+                    email.setError("Email is empty.");
+                    return true;
+                }
+                if (password.getText().toString().isEmpty()){
+                    password.setError("Password is empty.");
+                    return true;
+                }
+
+            }
+
+                return false;
         }
-
-
-
-
-  public void animateBackground(){
-          ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-          AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-          animationDrawable.setEnterFadeDuration(2500);
-          animationDrawable.setExitFadeDuration(5000);
-          animationDrawable.start();
-  }
 }

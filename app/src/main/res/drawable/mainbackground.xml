@@ -9,10 +9,5 @@
         android:endColor = "#012BFA"
         />
 
-    <corners
-        android:radius = "40dp"
-        ></corners>
-    <stroke
-        android:width="3dp"
-        android:color="#F1EEEF" />
+
 </shape>

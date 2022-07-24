@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_list"
+    android:background="@drawable/mainbackground"
     android:id = "@+id/constraintLayout"
     tools:context=".MainActivity">
 
@@ -31,7 +31,7 @@
         android:id="@+id/startButton"
         android:layout_width="122dp"
         android:layout_height="48dp"
-        android:background="@drawable/gradient"
+        android:background="@drawable/button"
         android:elevation="20dp"
         android:fontFamily="@font/chewy"
         android:stateListAnimator="@null"
@@ -68,7 +68,7 @@
         android:layout_width="363dp"
         android:layout_height="125dp"
         android:background="@drawable/gradient_list"
-        app:cardBackgroundColor="#E91E63"
+        app:cardBackgroundColor="#012BFA"
         app:cardCornerRadius="@dimen/activity_horizontal_margin"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

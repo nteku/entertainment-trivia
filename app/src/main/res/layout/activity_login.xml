@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background ="@drawable/gradient_list"
+    android:background ="@drawable/mainbackground"
     android:id = "@+id/constraintLayout"
     tools:context=".LoginActivity">
 
@@ -12,8 +12,8 @@
         android:id="@+id/cardView"
         android:layout_width="397dp"
         android:layout_height="197dp"
-        android:background="@drawable/gradient_list"
-        app:cardBackgroundColor="#E91E63"
+        android:background="@drawable/mainbackground"
+        app:cardBackgroundColor="#012BFA"
         app:cardCornerRadius="@dimen/activity_horizontal_margin"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
+        android:background="@drawable/button"
         android:fontFamily="@font/chewy"
         android:text="Sign up"
         android:stateListAnimator="@null"

@@ -1,6 +1,5 @@
 package com.example.entertainment_trivia;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
@@ -12,13 +11,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +23,6 @@ import java.util.Scanner;
 
 
 public class TVActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -49,8 +42,6 @@ public class TVActivity extends AppCompatActivity {
     private double correctPercentage;
     private Account account;
     private int score;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,7 +212,6 @@ public class TVActivity extends AppCompatActivity {
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -238,8 +228,6 @@ public class TVActivity extends AppCompatActivity {
             info.put(images.get(i),log.get(i));
         }
         Collections.shuffle(images);
-
-
     }
 
     public void gameResult(){
@@ -278,18 +266,12 @@ public class TVActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
-
             }
         });
-
-
-
-
     }
 
 
     public void setBackToDefault( ){
-
 
         currentImage.setImageResource(images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
@@ -311,6 +293,7 @@ public class TVActivity extends AppCompatActivity {
 
 
     public void animationBackground(){
+
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);

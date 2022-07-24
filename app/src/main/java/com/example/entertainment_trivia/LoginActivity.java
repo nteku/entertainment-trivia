@@ -58,97 +58,64 @@ public class LoginActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
 
-
-
-        /*
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(),password.getText().toString().trim())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    String userId = fAuth.getCurrentUser().getUid();
-                                    DocumentReference documentReference = fStore.collection("users").document(userId);
-                                    Map<String,Object> user = new HashMap<>();
-                                    user.put("fullName",name.getText().toString());
-                                    user.put("email",email.getText().toString());
-                                    user.put("password",password.getText().toString());
-                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d(TAG,"User profile is created");
-                                        }
-                                    });
-                                    Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                                    intent.putExtra("name",name.getText().toString());
-                                    startActivity(intent);
-
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this,"Task failed",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-
-
-
-                        });
-
-
-            }
-
-        });
-    */
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                fAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                                                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                                if (task.isSuccessful()) {
-                                                                    account = new Account(name.getText().toString(), email.getText().toString(), password.getText().toString(), "0");
-                                                                    FirebaseDatabase.getInstance().getReference("users")
-                                                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                @Override
-                                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                                    if (task.isSuccessful()) {
-                                                                                        Toast.makeText(LoginActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                                                        Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                                                                                        intent.putExtra("account", account);
-                                                                                        startActivity(intent);
-                                                                                    }else{
-                                                                                        Toast.makeText(LoginActivity.this,"Task failed",Toast.LENGTH_SHORT).show();
+                                                if (!emptyCredential()) {
+                                                    fAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        account = new Account(name.getText().toString(), email.getText().toString(), password.getText().toString(), "0");
+                                                                        FirebaseDatabase.getInstance().getReference("users")
+                                                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                        if (task.isSuccessful()) {
+                                                                                            Toast.makeText(LoginActivity.this, "Successfully registered user.", Toast.LENGTH_SHORT).show();
+                                                                                            Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                                                                                            intent.putExtra("account", account);
+                                                                                            startActivity(intent);
+                                                                                        } else {
+                                                                                            Toast.makeText(LoginActivity.this, "Unable to register user.", Toast.LENGTH_SHORT).show();
+                                                                                        }
                                                                                     }
-                                                                                }
-                                                                            });
+                                                                                });
 
 
+                                                                    }
                                                                 }
-                                                            }
-                                                        });
+                                                            });
+                                                }
                                             }
                                         });
 
-
-
     }
 
+    public boolean emptyCredential(){
 
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
-
+        if ( name.getText().toString().isEmpty() && email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+            name.setError("Name is empty");
+            email.setError("Email is empty.");
+            password.setError("Password is empty.");
+            return true;
+        }
+        else{
+            if (name.getText().toString().isEmpty()){
+                name.setError("Name is empty.");
+                return true;
+            }
+            if (email.getText().toString().isEmpty()){
+                email.setError("Email is empty.");
+                return true;
+            }
+            if (password.getText().toString().isEmpty()){
+                password.setError("Password is empty.");
+                return true;
+            }
+        }
+        return false;
     }
-
-
-
-
 
 }
