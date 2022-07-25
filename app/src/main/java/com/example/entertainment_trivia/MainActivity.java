@@ -53,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextTextPassword);
         progressBar = findViewById(R.id.progressBar);
 
+        progressBar.setVisibility(View.INVISIBLE);
+
         loggingIn.setOnClickListener( (v) -> {
+            progressBar.setVisibility(View.VISIBLE);
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.VISIBLE);
                                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-
                 return false;
         }
 }

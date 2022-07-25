@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private FirebaseAuth fAuth;
-    private FirebaseFirestore fStore;
+    private ProgressBar progressBar;
     private Account account;
 
     @Override
@@ -55,7 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         name = findViewById(R.id.editTextTextPersonName);
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
-        fStore = FirebaseFirestore.getInstance();
+        progressBar = findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.INVISIBLE);
+
         fAuth = FirebaseAuth.getInstance();
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                                                     if (task.isSuccessful()) {
+                                                                        progressBar.setVisibility(View.VISIBLE);
                                                                         account = new Account(name.getText().toString(), email.getText().toString(), password.getText().toString(), "0");
                                                                         FirebaseDatabase.getInstance().getReference("users")
                                                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -83,14 +88,12 @@ public class LoginActivity extends AppCompatActivity {
                                                                                     }
                                                                                 });
 
-
                                                                     }
                                                                 }
                                                             });
                                                 }
                                             }
                                         });
-
     }
 
     public boolean emptyCredential(){

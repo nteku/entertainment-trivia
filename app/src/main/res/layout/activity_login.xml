@@ -39,6 +39,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Name"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:fontFamily="@font/chewy"
                  />
@@ -51,6 +52,7 @@
                 android:ems="10"
                 android:inputType="textEmailAddress"
                 android:hint= "Email"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:fontFamily="@font/chewy"/>
 
@@ -62,6 +64,7 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="Password"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 app:endIconMode="password_toggle"
                 android:fontFamily="@font/chewy"/>
@@ -88,10 +91,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/openingbutton"
-        android:fontFamily="@font/chewy"
-        android:text="Sign up"
-        android:stateListAnimator="@null"
         android:elevation="20dp"
+        android:fontFamily="@font/chewy"
+        android:stateListAnimator="@null"
+        android:text="Sign up"
         android:textAllCaps="false"
         android:textSize="22sp"
         app:backgroundTint="@null"
@@ -100,5 +103,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723" />
+        app:layout_constraintVertical_bias="0.795" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669" />
 </androidx.constraintlayout.widget.ConstraintLayout>
