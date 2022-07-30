@@ -11,10 +11,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,9 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class TechnologyActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -46,8 +42,6 @@ public class TechnologyActivity extends AppCompatActivity {
     private Account account;
     private int score;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,11 +51,9 @@ public class TechnologyActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_technology);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
 
         Intent intent = getIntent();
 
@@ -94,21 +86,25 @@ public class TechnologyActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -125,20 +121,25 @@ public class TechnologyActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -155,20 +156,25 @@ public class TechnologyActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
@@ -178,7 +184,6 @@ public class TechnologyActivity extends AppCompatActivity {
             }
         });
 
-
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
                 gameResult();
@@ -187,7 +192,6 @@ public class TechnologyActivity extends AppCompatActivity {
                 setBackToDefault( );
             }
         });
-
     }
 
     public void disableButtons(){
@@ -198,7 +202,6 @@ public class TechnologyActivity extends AppCompatActivity {
     public void initializeLists(){
 
         currentLog = new ArrayList<>();
-
 
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("technology.txt")));
@@ -226,13 +229,10 @@ public class TechnologyActivity extends AppCompatActivity {
         images.add( R.drawable.os);
         images.add(R.drawable.floppydisk);
 
-
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
         Collections.shuffle(images);
-
-
     }
 
     public void gameResult(){
@@ -262,7 +262,6 @@ public class TechnologyActivity extends AppCompatActivity {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,21 +271,13 @@ public class TechnologyActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
-
             }
         });
-
-
-
-
-
     }
 
-
     public void setBackToDefault( ){
-
-
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -299,18 +290,8 @@ public class TechnologyActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
+
         answer = info.get(images.get((int) questionsDone)).get(4);
-
-    }
-
-
-
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
     }
 }
 

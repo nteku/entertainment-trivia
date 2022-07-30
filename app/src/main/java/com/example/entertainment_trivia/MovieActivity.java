@@ -70,7 +70,6 @@ public class MovieActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText(info.get(images.get((int) questionsDone)).get(1));
@@ -273,6 +272,7 @@ public class MovieActivity extends AppCompatActivity {
 
     public void setBackToDefault( ){
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -285,6 +285,7 @@ public class MovieActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
+
         answer = info.get(images.get((int) questionsDone)).get(4);
     }
 

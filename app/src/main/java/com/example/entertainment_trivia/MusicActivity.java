@@ -1,10 +1,8 @@
 package com.example.entertainment_trivia;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,13 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +22,6 @@ import java.util.Scanner;
 
 
 public class MusicActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -92,21 +84,25 @@ public class MusicActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                // option1.setText("Correct");
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -123,19 +119,25 @@ public class MusicActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -152,20 +154,25 @@ public class MusicActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
@@ -201,14 +208,12 @@ public class MusicActivity extends AppCompatActivity {
 
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -230,6 +235,7 @@ public class MusicActivity extends AppCompatActivity {
     public void gameResult(){
 
         nextButton.setText("Done");
+
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
@@ -255,24 +261,23 @@ public class MusicActivity extends AppCompatActivity {
         }
 
         account.setScore(String.valueOf(score));
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
-
             }
         });
-
     }
 
     public void setBackToDefault( ){
 
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -285,8 +290,8 @@ public class MusicActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
-        answer = info.get(images.get((int) questionsDone)).get(4);
 
+        answer = info.get(images.get((int) questionsDone)).get(4);
     }
 
 }

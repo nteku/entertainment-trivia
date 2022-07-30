@@ -1,10 +1,8 @@
 package com.example.entertainment_trivia;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,13 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +22,6 @@ import java.util.Scanner;
 
 
 public class SportsActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -50,9 +42,6 @@ public class SportsActivity extends AppCompatActivity {
     private Account account;
     private int score;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,11 +51,9 @@ public class SportsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_sports);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
 
         Intent intent = getIntent();
 
@@ -76,6 +63,7 @@ public class SportsActivity extends AppCompatActivity {
         }
 
         initializeLists();
+
         heading = findViewById(R.id.heading);
         question = findViewById(R.id.question);
         option1 = findViewById(R.id.option1);
@@ -84,16 +72,12 @@ public class SportsActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-
-
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText(info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
-
-
 
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
@@ -102,30 +86,31 @@ public class SportsActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                // option1.setText("Correct");
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 option1.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
@@ -136,30 +121,31 @@ public class SportsActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                //   option2.setText("Correct");
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 option2.setText("Incorrect");
                 questionsDone++;
                 disableButtons();
-
-
-
             }
         });
 
@@ -170,32 +156,33 @@ public class SportsActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                //  option3.setText("Correct");
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
-
-
             }
         });
-
 
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
@@ -204,11 +191,7 @@ public class SportsActivity extends AppCompatActivity {
             else{
                 setBackToDefault( );
             }
-
-
         });
-
-
     }
 
     public void disableButtons(){
@@ -217,9 +200,7 @@ public class SportsActivity extends AppCompatActivity {
         option3.setEnabled(false);
     }
     public void initializeLists(){
-
         currentLog = new ArrayList<>();
-
 
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("sports.txt")));
@@ -228,14 +209,12 @@ public class SportsActivity extends AppCompatActivity {
 
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -247,28 +226,23 @@ public class SportsActivity extends AppCompatActivity {
         images.add( R.drawable.cries);
         images.add(R.drawable.nyc);
 
-
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
         Collections.shuffle(images);
-
-
     }
 
     public void gameResult(){
 
         nextButton.setText("Done");
+
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
         currentImage.setVisibility(View.GONE);
         question.setVisibility(View.GONE);
 
-
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
-
-
 
         if ( (correctPercentage  >= 0) && (correctPercentage <= 59)){
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
@@ -289,21 +263,16 @@ public class SportsActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
-
             }
         });
-
     }
 
-
     public void setBackToDefault( ){
-
         currentImage.setImageResource(images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
@@ -317,18 +286,9 @@ public class SportsActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
+
         answer = info.get(images.get((int) questionsDone)).get(4);
-
     }
 
-
-
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
-    }
 }
 

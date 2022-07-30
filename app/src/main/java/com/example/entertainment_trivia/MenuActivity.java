@@ -1,22 +1,16 @@
 package com.example.entertainment_trivia;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -26,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button tvButton;
     private Button geographyButton;
     private Button techButton;
+    private Button signOutButton;
     private TextView name;
     private TextView score;
     private Account account;
@@ -40,7 +35,6 @@ public class MenuActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         score = findViewById(R.id.score);
 
-
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -49,14 +43,10 @@ public class MenuActivity extends AppCompatActivity {
             score.setText("Score: " + account.getScore());
         }
 
-
-
-
         movieButton = findViewById(R.id.movieButton);
         movieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(MovieActivity.class,view);
             }
         });
@@ -65,7 +55,6 @@ public class MenuActivity extends AppCompatActivity {
         sportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(SportsActivity.class,view);
             }
         });
@@ -74,7 +63,6 @@ public class MenuActivity extends AppCompatActivity {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(MusicActivity.class,view);
             }
         });
@@ -83,7 +71,6 @@ public class MenuActivity extends AppCompatActivity {
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(TVActivity.class,view);
             }
         });
@@ -92,20 +79,27 @@ public class MenuActivity extends AppCompatActivity {
         geographyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(GeographyActivity.class,view);
             }
         });
+
         techButton = findViewById(R.id.technologyButton);
         techButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity(TechnologyActivity.class,view);
             }
         });
 
-
+        signOutButton = findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MenuActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                finish();
+            }
+        });
     }
 
     public void openActivity(Class activity, View view){

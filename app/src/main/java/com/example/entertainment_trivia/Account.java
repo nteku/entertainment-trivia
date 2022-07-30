@@ -1,18 +1,33 @@
 package com.example.entertainment_trivia;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.io.Serializable;
 
 public class Account implements Serializable {
 
+    /**
+     * private attributes needed for class
+     */
     private String userName;
     private String email;
     private String password;
     private String score;
 
+    /**
+     * Default Constructor
+     */
     public Account (){
 
     }
 
+    /**
+     *
+     * @param userName
+     * @param email
+     * @param password
+     * @param score
+     */
     public Account(String userName, String email, String password, String score){
         this.userName = userName;
         this.email = email;

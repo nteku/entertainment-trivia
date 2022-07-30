@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class TVActivity extends AppCompatActivity {
 
     private TextView heading;
@@ -52,11 +51,9 @@ public class TVActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_tvactivity);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
 
         Intent intent = getIntent();
 
@@ -74,16 +71,12 @@ public class TVActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-
-
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText(info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
-
-
 
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
@@ -92,21 +85,25 @@ public class TVActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -123,20 +120,25 @@ public class TVActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -153,20 +155,25 @@ public class TVActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
@@ -176,7 +183,6 @@ public class TVActivity extends AppCompatActivity {
             }
         });
 
-
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
                 gameResult();
@@ -185,7 +191,6 @@ public class TVActivity extends AppCompatActivity {
                 setBackToDefault( );
             }
         });
-
     }
 
     public void disableButtons(){
@@ -196,7 +201,6 @@ public class TVActivity extends AppCompatActivity {
     public void initializeLists(){
 
         currentLog = new ArrayList<>();
-
 
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("tvshows.txt")));
@@ -220,9 +224,8 @@ public class TVActivity extends AppCompatActivity {
         }
 
         images.add(R.drawable.familymatters);
-        images.add( R.drawable.tv);
+        images.add(R.drawable.tv);
         images.add(R.drawable.strangerthings);
-
 
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
@@ -233,6 +236,7 @@ public class TVActivity extends AppCompatActivity {
     public void gameResult(){
 
         nextButton.setText("Done");
+
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
@@ -288,17 +292,6 @@ public class TVActivity extends AppCompatActivity {
         option3.setEnabled(true);
         answer = info.get(images.get((int) questionsDone)).get(4);
 
-    }
-
-
-
-    public void animationBackground(){
-
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
     }
 }
 

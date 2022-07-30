@@ -1,9 +1,7 @@
 package com.example.entertainment_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,10 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +21,6 @@ import java.util.Scanner;
 
 
 public class GeographyActivity extends AppCompatActivity {
-
 
     private TextView heading;
     private TextView question;
@@ -46,9 +41,6 @@ public class GeographyActivity extends AppCompatActivity {
     private int score;
     private Account account;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,11 +50,9 @@ public class GeographyActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_geography);
 
-        animationBackground();
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
-
 
         Intent intent = getIntent();
 
@@ -80,15 +70,12 @@ public class GeographyActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextButton);
         currentImage = findViewById(R.id.image);
 
-
-
         currentImage.setImageResource( images.get((int) questionsDone));
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText(info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
         option3.setText(info.get(images.get((int) questionsDone)).get(3));
         answer = info.get(images.get( (int) questionsDone)).get(4);
-
 
         option1.setOnClickListener((v) -> {
             if (option1.getText().equals(answer) ) {
@@ -97,21 +84,25 @@ public class GeographyActivity extends AppCompatActivity {
                     case 0:
                         option1.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option1.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option1.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -128,20 +119,25 @@ public class GeographyActivity extends AppCompatActivity {
                     case 0:
                         option2.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option2.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option2.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
@@ -158,20 +154,25 @@ public class GeographyActivity extends AppCompatActivity {
                     case 0:
                         option3.setText("Correct + 2");
                         score += 2;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 1:
                         option3.setText("Correct + 4");
                         score += 4;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
                     case 2:
                         option3.setText("Correct + 6");
                         score += 6;
+                        questionsCorrect++;
+                        questionsDone++;
+                        disableButtons();
                         break;
-
                 }
-                questionsCorrect++;
-                questionsDone++;
-                disableButtons();
             }
             else{
                 option3.setText("Incorrect");
@@ -181,7 +182,6 @@ public class GeographyActivity extends AppCompatActivity {
             }
         });
 
-
         nextButton.setOnClickListener((v) ->{
             if (questionsDone == totalQuestions){
                 gameResult();
@@ -190,7 +190,6 @@ public class GeographyActivity extends AppCompatActivity {
                 setBackToDefault( );
             }
         });
-
     }
 
     public void disableButtons(){
@@ -202,22 +201,18 @@ public class GeographyActivity extends AppCompatActivity {
 
         currentLog = new ArrayList<>();
 
-
         try {
             DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("geography.txt")));
             Scanner input = new Scanner(textFileStream);
             while (input.hasNextLine()) {
-
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -229,12 +224,10 @@ public class GeographyActivity extends AppCompatActivity {
         images.add( R.drawable.algeria);
         images.add(R.drawable.italy);
 
-
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
         Collections.shuffle(images);
-
     }
 
     public void gameResult(){
@@ -264,26 +257,22 @@ public class GeographyActivity extends AppCompatActivity {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("account", account);
                 startActivity(intent);
-
             }
         });
 
     }
 
-
     public void setBackToDefault( ){
-
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -296,17 +285,8 @@ public class GeographyActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
+
         answer = info.get(images.get((int) questionsDone)).get(4);
-
-    }
-
-
-    public void animationBackground(){
-        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
     }
 }
 
