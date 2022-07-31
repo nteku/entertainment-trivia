@@ -82,21 +82,21 @@ public class MovieActivity extends AppCompatActivity {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option1.setText("Correct + 2");
+                        option1.setText(getResources().getString(R.string.plusTwo));
                         score += 2;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option1.setText("Correct + 4");
+                        option1.setText(getResources().getString(R.string.plusFour));
                         score += 4;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option1.setText("Correct + 6");
+                        option1.setText(getResources().getString(R.string.plusSix));
                         score += 6;
                         questionsCorrect++;
                         questionsDone++;
@@ -117,21 +117,21 @@ public class MovieActivity extends AppCompatActivity {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option2.setText("Correct + 2");
+                        option2.setText(getResources().getString(R.string.plusTwo));
                         score += 2;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option2.setText("Correct + 4");
+                        option2.setText(getResources().getString(R.string.plusFour));
                         score += 4;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option2.setText("Correct + 6");
+                        option2.setText(getResources().getString(R.string.plusSix));
                         score += 6;
                         questionsCorrect++;
                         questionsDone++;
@@ -152,21 +152,21 @@ public class MovieActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option3.setText("Correct + 2");
+                        option3.setText(getResources().getString(R.string.plusTwo));
                         score += 2;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option3.setText("Correct + 4");
+                        option3.setText(getResources().getString(R.string.plusFour));
                         score += 4;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option3.setText("Correct + 6");
+                        option3.setText(getResources().getString(R.string.plusSix));
                         score += 6;
                         questionsCorrect++;
                         questionsDone++;
@@ -202,7 +202,7 @@ public class MovieActivity extends AppCompatActivity {
         currentLog = new ArrayList<>();
 
         try {
-            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("movies.txt")));
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(getResources().getString(R.string.moviesTextFile)));
             Scanner input = new Scanner(textFileStream);
             while (input.hasNextLine()) {
 

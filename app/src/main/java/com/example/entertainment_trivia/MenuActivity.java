@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            account = (Account) intent.getSerializableExtra("account");
+            account = (Account) intent.getSerializableExtra(getResources().getString(R.string.account));
             name.setText(" Hello " + account.getUserName() + ",");
             score.setText("Score: " + account.getScore());
         }

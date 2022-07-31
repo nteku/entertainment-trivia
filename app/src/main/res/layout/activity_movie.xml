@@ -121,7 +121,7 @@
         android:layout_height="64dp"
         android:background="@drawable/gradient"
         android:fontFamily="@font/loved_by_the_king"
-        android:text="Next"
+        android:text="@string/next"
         android:textAllCaps="false"
         android:textSize="22sp"
         android:textStyle="bold"
