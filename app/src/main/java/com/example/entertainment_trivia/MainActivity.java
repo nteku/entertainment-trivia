@@ -18,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private  EditText password;
     private  Account account;
     private ProgressBar progressBar;
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress2);
         password = findViewById(R.id.editTextTextPassword);
         progressBar = findViewById(R.id.progressBar);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -53,9 +57,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
-            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-            intent.putExtra("account", account);
-            startActivity(intent);
+
+            FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    account = (snapshot.getValue(Account.class));
+                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                    intent.putExtra("account", account);
+                    startActivity(intent);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(MainActivity.this,"Successfully Signed Out.",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         startButton.setOnClickListener(new View.OnClickListener() {
