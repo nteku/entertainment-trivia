@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Entertainmenttrivia">
         <activity
-            android:name=".loginandregistration.LoginActivity"
+            android:name=".loginandregistration.RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".technology.TechnologyActivity"

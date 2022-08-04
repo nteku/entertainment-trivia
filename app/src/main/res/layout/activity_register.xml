@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background ="@drawable/mainbackground"
     android:id = "@+id/constraintLayout"
-    tools:context=".loginandregistration.LoginActivity">
+    tools:context=".loginandregistration.RegistrationActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
