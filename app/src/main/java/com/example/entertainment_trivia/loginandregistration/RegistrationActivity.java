@@ -23,7 +23,7 @@ import java.util.Objects;
 
 /**
  * Class:   RegistrationActivity.java
- * Purpose: Registers a user to the database
+ * Purpose: Registers a user to Firebase.
  * @author  Nathan Teku
  */
 public class RegistrationActivity extends AppCompatActivity
@@ -43,7 +43,7 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // hiding action bar
+        // hiding top bar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         // creating view
@@ -87,13 +87,14 @@ public class RegistrationActivity extends AppCompatActivity
 
                                         // placing account object to Firebase Realtime Database
                                         FirebaseDatabase.getInstance().getReference(getResources().getString(R.string.users))
-                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(account).addOnCompleteListener(new OnCompleteListener<Void>()
+                                                {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task)
                                                     {
                                                         if (task.isSuccessful())
                                                         {
-                                                            // create toast message and going to the MenuActivity with account being passed through
+                                                            // create toast message and going to the MenuActivity with account being serialized
                                                             Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.successful_register),Toast.LENGTH_SHORT).show();
                                                             Intent intent = new Intent(v.getContext(), MenuActivity.class);
                                                             intent.putExtra(getResources().getString(R.string.account), account);
@@ -115,13 +116,14 @@ public class RegistrationActivity extends AppCompatActivity
 
     /**
      * Method:  emptyCredential()
-     * Purpose: Detects if either the password or email slots are left empty when logging in
+     * Purpose: Detects if either the password or email slots are left empty when logging in.
      * @return
      */
     public boolean emptyCredential()
     {
         // if both the email and password slots are empty, trigger an error
-        if ( name.getText().toString().isEmpty() && email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+        if ( name.getText().toString().isEmpty() && email.getText().toString().isEmpty() && password.getText().toString().isEmpty())
+        {
             name.setError(getResources().getString(R.string.empty_Name));
             email.setError(getResources().getString(R.string.empty_Email));
             password.setError(getResources().getString(R.string.empty_Password));

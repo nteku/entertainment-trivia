@@ -25,7 +25,7 @@ import java.util.Objects;
 
 /**
  * Class:   MainActivity.java
- * Purpose: This activity is meant as a login screen for a user
+ * Purpose: This activity is meant as a login screen for a user.
  * @author  Nathan Teku
  */
 public class MainActivity extends AppCompatActivity
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        // hiding action bar
+        // hiding top bar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         // creating view
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot)
                 {
-                    // saving the object and going to the MenuActivity with account being passed through
+                    // saving the object and going to the MenuActivity with account being serialized
                     account = (snapshot.getValue(Account.class));
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                     intent.putExtra(getResources().getString(R.string.account), account);
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Method:  emptyCredential()
-     * Purpose: Detects if either the password or email slots are left empty when logging in
+     * Purpose: Detects if either the password or email slots are left empty when logging in.
      * @return
      */
     public boolean emptyCredential()
