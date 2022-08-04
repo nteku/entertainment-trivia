@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/menubackground"
     android:id = "@+id/constraintLayout"
-    tools:context=".MusicActivity">
+    tools:context=".music.MusicActivity">
 
     <ImageView
         android:id="@+id/image"

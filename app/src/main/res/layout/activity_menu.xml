@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/menubackground"
     android:id = "@+id/constraintLayout"
-    tools:context=".MenuActivity">
+    tools:context=".menu.MenuActivity">
 
     <Button
         android:id="@+id/movieButton"
@@ -85,7 +85,7 @@
         android:elevation="20dp"
         app:backgroundTint="@null"
         android:background="@drawable/gradient"
-        android:text="@string/tvShows"
+        android:text="@string/tv_Shows"
         android:textAllCaps="false"
         android:fontFamily="@font/loved_by_the_king"
         android:textSize="22sp"

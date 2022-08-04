@@ -1,4 +1,4 @@
-package com.example.entertainment_trivia;
+package com.example.entertainment_trivia.menu;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.entertainment_trivia.loginandregistration.MainActivity;
+import com.example.entertainment_trivia.R;
+import com.example.entertainment_trivia.account.Account;
+import com.example.entertainment_trivia.geography.GeographyActivity;
+import com.example.entertainment_trivia.movies.MovieActivity;
+import com.example.entertainment_trivia.music.MusicActivity;
+import com.example.entertainment_trivia.sports.SportsActivity;
+import com.example.entertainment_trivia.technology.TechnologyActivity;
+import com.example.entertainment_trivia.tv.TVActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuActivity extends AppCompatActivity {
@@ -96,7 +105,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MenuActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MenuActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
             }
         });

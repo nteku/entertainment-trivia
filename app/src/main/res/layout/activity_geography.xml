@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
     android:id = "@+id/constraintLayout"
-    tools:context=".GeographyActivity">
+    tools:context=".geography.GeographyActivity">
 
     <ImageView
         android:id="@+id/image"

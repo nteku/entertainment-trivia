@@ -1,9 +1,7 @@
-package com.example.entertainment_trivia;
+package com.example.entertainment_trivia.sports;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +9,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.entertainment_trivia.menu.MenuActivity;
+import com.example.entertainment_trivia.R;
+import com.example.entertainment_trivia.account.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.DataInputStream;
@@ -21,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class TechnologyActivity extends AppCompatActivity {
+public class SportsActivity extends AppCompatActivity {
 
     private TextView heading;
     private TextView question;
@@ -41,15 +43,17 @@ public class TechnologyActivity extends AppCompatActivity {
     private double correctPercentage;
     private Account account;
     private int score;
+    private final int TWO = 2;
+    private final int FOUR = 4;
+    private final int SIX = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_technology);
+        setContentView(R.layout.activity_sports);
 
         log = new ArrayList<>();
         images = new ArrayList<>();
@@ -58,7 +62,7 @@ public class TechnologyActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            account = (Account) intent.getSerializableExtra("account");
+            account = (Account) intent.getSerializableExtra(getResources().getString(R.string.account));
             score = Integer.parseInt(account.getScore());
         }
 
@@ -84,22 +88,22 @@ public class TechnologyActivity extends AppCompatActivity {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option1.setText("Correct + 2");
-                        score += 2;
+                        option1.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option1.setText("Correct + 4");
-                        score += 4;
+                        option1.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option1.setText("Correct + 6");
-                        score += 6;
+                        option1.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -108,7 +112,7 @@ public class TechnologyActivity extends AppCompatActivity {
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
-                option1.setText("Incorrect");
+                option1.setText(getResources().getString(R.string.incorrect));
                 questionsDone++;
                 disableButtons();
             }
@@ -119,22 +123,22 @@ public class TechnologyActivity extends AppCompatActivity {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option2.setText("Correct + 2");
-                        score += 2;
+                        option2.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option2.setText("Correct + 4");
-                        score += 4;
+                        option2.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option2.setText("Correct + 6");
-                        score += 6;
+                        option2.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -143,7 +147,7 @@ public class TechnologyActivity extends AppCompatActivity {
             }
             else{
                 option2.setBackground(getResources().getDrawable(R.drawable.incorrect));
-                option2.setText("Incorrect");
+                option2.setText(getResources().getString(R.string.incorrect));
                 questionsDone++;
                 disableButtons();
             }
@@ -154,22 +158,22 @@ public class TechnologyActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option3.setText("Correct + 2");
-                        score += 2;
+                        option3.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option3.setText("Correct + 4");
-                        score += 4;
+                        option3.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option3.setText("Correct + 6");
-                        score += 6;
+                        option3.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -177,7 +181,7 @@ public class TechnologyActivity extends AppCompatActivity {
                 }
             }
             else{
-                option3.setText("Incorrect");
+                option3.setText(getResources().getString(R.string.incorrect));
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
@@ -189,7 +193,7 @@ public class TechnologyActivity extends AppCompatActivity {
                 gameResult();
             }
             else{
-                setBackToDefault( );
+                setBackToDefault();
             }
         });
     }
@@ -200,24 +204,21 @@ public class TechnologyActivity extends AppCompatActivity {
         option3.setEnabled(false);
     }
     public void initializeLists(){
-
         currentLog = new ArrayList<>();
 
         try {
-            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("technology.txt")));
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format(getResources().getString(R.string.sports_File))));
             Scanner input = new Scanner(textFileStream);
             while (input.hasNextLine()) {
 
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
                 }
                 else{
                     currentLog.add(line);
-
                 }
             }
             input.close();
@@ -225,9 +226,9 @@ public class TechnologyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        images.add(R.drawable.iphone);
-        images.add( R.drawable.os);
-        images.add(R.drawable.floppydisk);
+        images.add(R.drawable.rings);
+        images.add( R.drawable.cries);
+        images.add(R.drawable.nyc);
 
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
@@ -236,8 +237,8 @@ public class TechnologyActivity extends AppCompatActivity {
     }
 
     public void gameResult(){
+        nextButton.setText(getResources().getString(R.string.done));
 
-        nextButton.setText("Done");
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
@@ -265,11 +266,10 @@ public class TechnologyActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.score)).setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                intent.putExtra("account", account);
+                intent.putExtra(getResources().getString(R.string.account), account);
                 startActivity(intent);
             }
         });
@@ -277,7 +277,6 @@ public class TechnologyActivity extends AppCompatActivity {
 
     public void setBackToDefault( ){
         currentImage.setImageResource(images.get((int) questionsDone));
-
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -293,8 +292,6 @@ public class TechnologyActivity extends AppCompatActivity {
 
         answer = info.get(images.get((int) questionsDone)).get(4);
     }
+
 }
-
-
-
 

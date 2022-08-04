@@ -1,9 +1,8 @@
-package com.example.entertainment_trivia;
+package com.example.entertainment_trivia.music;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.entertainment_trivia.menu.MenuActivity;
+import com.example.entertainment_trivia.R;
+import com.example.entertainment_trivia.account.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.DataInputStream;
@@ -21,7 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class TVActivity extends AppCompatActivity {
+
+public class MusicActivity extends AppCompatActivity {
 
     private TextView heading;
     private TextView question;
@@ -41,24 +45,25 @@ public class TVActivity extends AppCompatActivity {
     private double correctPercentage;
     private Account account;
     private int score;
+    private final int TWO = 2;
+    private final int FOUR = 4;
+    private final int SIX = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_tvactivity);
+        setContentView(R.layout.activity_music);
 
         log = new ArrayList<>();
         images = new ArrayList<>();
         info = new HashMap<>();
 
         Intent intent = getIntent();
-
         if (intent != null) {
-            account = (Account) intent.getSerializableExtra("account");
+            account = (Account) intent.getSerializableExtra(getResources().getString(R.string.account));
             score = Integer.parseInt(account.getScore());
         }
 
@@ -83,22 +88,22 @@ public class TVActivity extends AppCompatActivity {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option1.setText("Correct + 2");
-                        score += 2;
+                        option1.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option1.setText("Correct + 4");
-                        score += 4;
+                        option1.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option1.setText("Correct + 6");
-                        score += 6;
+                        option1.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -107,7 +112,7 @@ public class TVActivity extends AppCompatActivity {
             }
             else{
                 option1.setBackground(getResources().getDrawable(R.drawable.incorrect));
-                option1.setText("Incorrect");
+                option1.setText(getResources().getString(R.string.incorrect));
                 questionsDone++;
                 disableButtons();
             }
@@ -118,22 +123,22 @@ public class TVActivity extends AppCompatActivity {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option2.setText("Correct + 2");
-                        score += 2;
+                        option2.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option2.setText("Correct + 4");
-                        score += 4;
+                        option2.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option2.setText("Correct + 6");
-                        score += 6;
+                        option2.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -153,22 +158,22 @@ public class TVActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option3.setText("Correct + 2");
-                        score += 2;
+                        option3.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option3.setText("Correct + 4");
-                        score += 4;
+                        option3.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option3.setText("Correct + 6");
-                        score += 6;
+                        option3.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -176,7 +181,7 @@ public class TVActivity extends AppCompatActivity {
                 }
             }
             else{
-                option3.setText("Incorrect");
+                option3.setText(getResources().getString(R.string.incorrect));
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
@@ -203,13 +208,12 @@ public class TVActivity extends AppCompatActivity {
         currentLog = new ArrayList<>();
 
         try {
-            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("tvshows.txt")));
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format(getResources().getString(R.string.music_File))));
             Scanner input = new Scanner(textFileStream);
             while (input.hasNextLine()) {
 
                 String line = input.nextLine();
                 if (line.equals("?")){
-
                     log.add(currentLog);
                     currentLog = new ArrayList<>();
                     totalQuestions++;
@@ -223,19 +227,20 @@ public class TVActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        images.add(R.drawable.familymatters);
-        images.add(R.drawable.tv);
-        images.add(R.drawable.strangerthings);
+        images.add(R.drawable.music);
+        images.add( R.drawable.grammy);
+        images.add(R.drawable.mj);
 
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
         }
+
         Collections.shuffle(images);
     }
 
     public void gameResult(){
 
-        nextButton.setText("Done");
+        nextButton.setText(getResources().getString(R.string.done));
 
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
@@ -261,23 +266,23 @@ public class TVActivity extends AppCompatActivity {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions +  " correct. Excellent work! Updated Score: " + score);
         }
 
+        account.setScore(String.valueOf(score));
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.score)).setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                intent.putExtra("account", account);
+                intent.putExtra(getResources().getString(R.string.account), account);
                 startActivity(intent);
             }
         });
     }
 
-
     public void setBackToDefault( ){
-
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -290,9 +295,10 @@ public class TVActivity extends AppCompatActivity {
         option1.setEnabled(true);
         option2.setEnabled(true);
         option3.setEnabled(true);
-        answer = info.get(images.get((int) questionsDone)).get(4);
 
+        answer = info.get(images.get((int) questionsDone)).get(4);
     }
+
 }
 
 

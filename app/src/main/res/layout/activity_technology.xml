@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/menubackground"
     android:id = "@+id/constraintLayout"
-    tools:context=".MovieActivity">
+    tools:context=".movies.MovieActivity">
 
     <ImageView
         android:id="@+id/image"

@@ -13,31 +13,31 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Entertainmenttrivia">
         <activity
-            android:name=".LoginActivity"
+            android:name=".loginandregistration.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".TechnologyActivity"
+            android:name=".technology.TechnologyActivity"
             android:exported="false" />
         <activity
-            android:name=".GeographyActivity"
+            android:name=".geography.GeographyActivity"
             android:exported="false" />
         <activity
-            android:name=".TVActivity"
+            android:name=".tv.TVActivity"
             android:exported="false" />
         <activity
-            android:name=".MusicActivity"
+            android:name=".music.MusicActivity"
             android:exported="false" />
         <activity
-            android:name=".SportsActivity"
+            android:name=".sports.SportsActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieActivity"
+            android:name=".movies.MovieActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".menu.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".loginandregistration.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

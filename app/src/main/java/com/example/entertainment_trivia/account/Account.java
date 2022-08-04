@@ -1,7 +1,4 @@
-package com.example.entertainment_trivia;
-
-import com.google.firebase.database.DatabaseReference;
-
+package com.example.entertainment_trivia.account;
 import java.io.Serializable;
 
 public class Account implements Serializable {
@@ -22,7 +19,7 @@ public class Account implements Serializable {
     }
 
     /**
-     *
+     * Constructor that holds info of a user's account
      * @param userName
      * @param email
      * @param password

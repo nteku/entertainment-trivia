@@ -1,4 +1,4 @@
-package com.example.entertainment_trivia;
+package com.example.entertainment_trivia.loginandregistration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.entertainment_trivia.R;
+import com.example.entertainment_trivia.account.Account;
+import com.example.entertainment_trivia.menu.MenuActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView loggingIn;
     private  EditText email;
     private  EditText password;
-    private  Account account;
+    private Account account;
     private ProgressBar progressBar;
 
 
@@ -59,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
 
-            FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     account = (snapshot.getValue(Account.class));
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                    intent.putExtra("account", account);
+                    intent.putExtra(getResources().getString(R.string.account), account);
                     startActivity(intent);
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(MainActivity.this,"Successfully Signed Out.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getResources().getString(R.string.successful_Message),Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -84,22 +88,22 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         account = (snapshot.getValue(Account.class));
                                         Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                                        intent.putExtra("account", account);
+                                        intent.putExtra(getResources().getString(R.string.account), account);
                                         startActivity(intent);
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        Toast.makeText(MainActivity.this,"Login Failed",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this,getResources().getString(R.string.login_failed),Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                             else{
-                                Toast.makeText(MainActivity.this,"Email or Password is incorrect",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this,getResources().getString(R.string.incorrect_Credentials),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -110,17 +114,17 @@ public class MainActivity extends AppCompatActivity {
 
         public boolean emptyCredential(){
             if (email.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
-                email.setError("Email is empty.");
-                password.setError("Password is empty.");
+                email.setError(getResources().getString(R.string.empty_Email));
+                password.setError(getResources().getString(R.string.empty_Password));
                 return true;
             }
             else{
                 if (email.getText().toString().isEmpty()){
-                    email.setError("Email is empty.");
+                    email.setError(getResources().getString(R.string.empty_Email));
                     return true;
                 }
                 if (password.getText().toString().isEmpty()){
-                    password.setError("Password is empty.");
+                    password.setError(getResources().getString(R.string.empty_Password));
                     return true;
                 }
 

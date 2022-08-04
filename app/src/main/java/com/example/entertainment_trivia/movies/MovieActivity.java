@@ -1,4 +1,4 @@
-package com.example.entertainment_trivia;
+package com.example.entertainment_trivia.movies;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.entertainment_trivia.menu.MenuActivity;
+import com.example.entertainment_trivia.R;
+import com.example.entertainment_trivia.account.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.DataInputStream;
@@ -20,8 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-
-public class SportsActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity {
 
     private TextView heading;
     private TextView question;
@@ -41,15 +44,17 @@ public class SportsActivity extends AppCompatActivity {
     private double correctPercentage;
     private Account account;
     private int score;
+    private final int TWO = 2;
+    private final int FOUR = 4;
+    private final int SIX = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_sports);
+        setContentView(R.layout.activity_movie);
 
         log = new ArrayList<>();
         images = new ArrayList<>();
@@ -58,12 +63,11 @@ public class SportsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            account = (Account) intent.getSerializableExtra("account");
+            account = (Account) intent.getSerializableExtra(getResources().getString(R.string.account));
             score = Integer.parseInt(account.getScore());
         }
 
         initializeLists();
-
         heading = findViewById(R.id.heading);
         question = findViewById(R.id.question);
         option1 = findViewById(R.id.option1);
@@ -84,22 +88,22 @@ public class SportsActivity extends AppCompatActivity {
                 option1.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option1.setText("Correct + 2");
-                        score += 2;
+                        option1.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option1.setText("Correct + 4");
-                        score += 4;
+                        option1.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option1.setText("Correct + 6");
-                        score += 6;
+                        option1.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -119,22 +123,22 @@ public class SportsActivity extends AppCompatActivity {
                 option2.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option2.setText("Correct + 2");
-                        score += 2;
+                        option2.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option2.setText("Correct + 4");
-                        score += 4;
+                        option2.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option2.setText("Correct + 6");
-                        score += 6;
+                        option2.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -154,22 +158,22 @@ public class SportsActivity extends AppCompatActivity {
                 option3.setBackground(getResources().getDrawable(R.drawable.correct));
                 switch ((int) questionsDone){
                     case 0:
-                        option3.setText("Correct + 2");
-                        score += 2;
+                        option3.setText(getResources().getString(R.string.plusTwo));
+                        score += TWO;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 1:
-                        option3.setText("Correct + 4");
-                        score += 4;
+                        option3.setText(getResources().getString(R.string.plusFour));
+                        score += FOUR;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
                         break;
                     case 2:
-                        option3.setText("Correct + 6");
-                        score += 6;
+                        option3.setText(getResources().getString(R.string.plusSix));
+                        score += SIX;
                         questionsCorrect++;
                         questionsDone++;
                         disableButtons();
@@ -177,7 +181,7 @@ public class SportsActivity extends AppCompatActivity {
                 }
             }
             else{
-                option3.setText("Incorrect");
+                option3.setText(R.string.incorrect);
                 option3.setBackground(getResources().getDrawable(R.drawable.incorrect));
                 questionsDone++;
                 disableButtons();
@@ -199,11 +203,12 @@ public class SportsActivity extends AppCompatActivity {
         option2.setEnabled(false);
         option3.setEnabled(false);
     }
+
     public void initializeLists(){
         currentLog = new ArrayList<>();
 
         try {
-            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("sports.txt")));
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(getResources().getString(R.string.movies_File)));
             Scanner input = new Scanner(textFileStream);
             while (input.hasNextLine()) {
 
@@ -222,9 +227,9 @@ public class SportsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        images.add(R.drawable.rings);
-        images.add( R.drawable.cries);
-        images.add(R.drawable.nyc);
+        images.add(R.drawable.denzelwashington);
+        images.add( R.drawable.money);
+        images.add(R.drawable.scoobydoo);
 
         for (int i = 0; i < log.size(); i++){
             info.put(images.get(i),log.get(i));
@@ -233,9 +238,7 @@ public class SportsActivity extends AppCompatActivity {
     }
 
     public void gameResult(){
-
-        nextButton.setText("Done");
-
+        nextButton.setText(getResources().getString(R.string.done));
         option1.setVisibility(View.GONE);
         option2.setVisibility(View.GONE);
         option3.setVisibility(View.GONE);
@@ -263,17 +266,19 @@ public class SportsActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("score").setValue(String.valueOf(score));
+                FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.score)).setValue(String.valueOf(score));
                 account.setScore(String.valueOf(score));
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
-                intent.putExtra("account", account);
+                intent.putExtra(getResources().getString(R.string.account), account);
                 startActivity(intent);
             }
         });
     }
 
+
     public void setBackToDefault( ){
         currentImage.setImageResource(images.get((int) questionsDone));
+
         question.setText(info.get(images.get((int) questionsDone)).get(0));
         option1.setText( info.get(images.get((int) questionsDone)).get(1));
         option2.setText(info.get(images.get((int) questionsDone)).get(2));
@@ -287,8 +292,10 @@ public class SportsActivity extends AppCompatActivity {
         option2.setEnabled(true);
         option3.setEnabled(true);
 
-        answer = info.get(images.get((int) questionsDone)).get(4);
+        answer = info.get(images.get((int) questionsDone)).get(FOUR);
     }
 
 }
+
+
 
