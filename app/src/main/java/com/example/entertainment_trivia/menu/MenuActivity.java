@@ -22,7 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
  * Purpose: A way for the user to choose a topic they want to be questioned on.
  * @author Nathan Teku
  */
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity
+{
 
     // private attributes needed for this class
     private Button movieButton;
