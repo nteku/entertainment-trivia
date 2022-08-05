@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 /**
  * Class: MovieActivity.java
- * Purpose: Activity tests user's skill in Movies
+ * Purpose: Activity tests user's knowledge in Movies
  * @author Nathan Teku
  */
 public class MovieActivity extends AppCompatActivity
@@ -355,19 +355,19 @@ public class MovieActivity extends AppCompatActivity
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
 
         // determining the range of the percentage to display summary
-        if ( (correctPercentage  >= 0) && (correctPercentage <= 59))
+        if ((correctPercentage  >= 0) && (correctPercentage <= 59))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 60) && (correctPercentage <= 69))
+        else if ((correctPercentage >= 60) && (correctPercentage <= 69))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 70) && (correctPercentage <= 79))
+        else if ((correctPercentage >= 70) && (correctPercentage <= 79))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 80)  && (correctPercentage <= 89))
+        else if ((correctPercentage >= 80)  && (correctPercentage <= 89))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
         }

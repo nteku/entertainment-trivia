@@ -19,10 +19,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-
 /**
  * Class: MusicActivity.java
- * Purpose: Activity tests user's skill in Music
+ * Purpose: Activity tests user's knowledge in Music
  * @author Nathan Teku
  */
 public class MusicActivity extends AppCompatActivity
@@ -355,19 +354,19 @@ public class MusicActivity extends AppCompatActivity
         correctPercentage = (double) (questionsCorrect/totalQuestions) * 100;
 
         // determining the range of the percentage to display summary
-        if ( (correctPercentage  >= 0) && (correctPercentage <= 59))
+        if ((correctPercentage  >= 0) && (correctPercentage <= 59))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Try again. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 60) && (correctPercentage <= 69))
+        else if ((correctPercentage >= 60) && (correctPercentage <= 69))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Not looking so good. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 70) && (correctPercentage <= 79))
+        else if ((correctPercentage >= 70) && (correctPercentage <= 79))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Could do better. Updated Score: " + score);
         }
-        else if ( (correctPercentage >= 80)  && (correctPercentage <= 89))
+        else if ((correctPercentage >= 80)  && (correctPercentage <= 89))
         {
             heading.setText("You got " + (int) questionsCorrect + " out of " + (int) totalQuestions + " correct. Great job! Updated Score: " + score);
         }

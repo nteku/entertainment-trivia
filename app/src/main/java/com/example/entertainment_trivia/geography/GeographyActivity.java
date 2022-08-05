@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 /**
  * Class: GeographyActivity.java
- * Purpose: Activity tests user's skill in Geography
+ * Purpose: Activity tests user's knowledge in Geography
  * @author Nathan Teku
  */
 public class GeographyActivity extends AppCompatActivity
