@@ -39,7 +39,7 @@
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="cursive"
+        android:fontFamily="@font/loved_by_the_king"
         android:gravity="center_horizontal"
         android:text=""
         android:textColor="#FFFFFF"
