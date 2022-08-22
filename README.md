@@ -1,5 +1,5 @@
 # entertainment-trivia
-This was a project that I created through Android Studio as I really enjoyed developing this app. This project tests the users knowledge on various topics such as Movies, Music, and more.
+This was a project that I created using Android Studio as I really enjoyed developing this app. This project tests the users knowledge on various topics such as Movies, Music, and more.
 The user can create an account that can track their score as the user can sign in/sign out anytime. This was done using a NoSQL database called Firebase.
  Attached below is a demo of my application!
 # demo
