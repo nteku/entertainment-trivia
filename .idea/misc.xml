@@ -10,20 +10,23 @@
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/gradient_2.xml" value="0.1" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/gradient_3.xml" value="0.1" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/gradient_list.xml" value="0.1" />
+        <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.3025" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/incorrect.xml" value="0.2155" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/mainbackground.xml" value="0.1" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/menubackground.xml" value="0.1" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/drawable/register.xml" value="0.3475" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_geography.xml" value="0.346875" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_login.xml" value="0.11724137931034483" />
-        <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_menu.xml" value="0.33" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_movie.xml" value="0.33" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_music.xml" value="0.3625" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_regisiter.xml" value="0.1" />
+        <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_register.xml" value="0.3625" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_sports.xml" value="0.25" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_technology.xml" value="0.23867753623188406" />
         <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/layout/activity_tvactivity.xml" value="0.346875" />
+        <entry key="..\:/Users/Nate/StudioProjects/entertainment-trivia/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3463541666666667" />
         <entry key="..\:/Users/ual-laptop/AndroidStudioProjects/entertainmenttrivia/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/ual-laptop/AndroidStudioProjects/entertainmenttrivia/app/src/main/res/layout/activity_menu.xml" value="0.1640625" />
         <entry key="..\:/Users/ual-laptop/AndroidStudioProjects/entertainmenttrivia/app/src/main/res/layout/activity_movie.xml" value="0.13405797101449277" />

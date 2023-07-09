@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.entertainment_trivia.loginandregistration.MainActivity;
 import com.example.entertainment_trivia.R;
@@ -17,6 +18,7 @@ import com.example.entertainment_trivia.technology.TechnologyActivity;
 import com.example.entertainment_trivia.tv.TVActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+
 /**
  * Class: MenuActivity.java
  * Purpose: A way for the user to choose a topic they want to be questioned on.
@@ -26,12 +28,12 @@ public class MenuActivity extends AppCompatActivity
 {
 
     // private attributes needed for this class
-    private Button movieButton;
-    private Button sportButton;
-    private Button musicButton;
-    private Button tvButton;
-    private Button geographyButton;
-    private Button techButton;
+    private ImageButton movieButton;
+    private ImageButton sportButton;
+    private ImageButton musicButton;
+    private ImageButton tvButton;
+    private ImageButton geographyButton;
+    private ImageButton techButton;
     private Button signOutButton;
     private TextView name;
     private TextView score;
